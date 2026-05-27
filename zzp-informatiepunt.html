@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zeker ZZP &mdash; Informatiepunt</title>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#0f1f2e;--teal:#0d7c66;--teal2:#12a085;--teal-pale:#e6f7f4;--amber:#f0a500;--amber-pale:#fff8e6;--red:#c9350f;--red-pale:#fdeae4;--paper:#f6f3ee;--paper2:#ece8e0;--ink:#111827;--mid:#5a6474;--light:#a8b0bc;--fd:"Familjen Grotesk",sans-serif;--fl:"Lora",serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--ink);font-family:var(--fd);overflow-x:hidden;}
+.page{display:none;}.page.active{display:block;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-mark{width:34px;height:34px;flex-shrink:0;}
+.logo-name{font-size:1rem;font-weight:700;color:var(--navy);}
+.logo-sub{font-size:.57rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);}
+.logo-w .logo-name{color:#fff;}.logo-w .logo-sub{color:var(--teal2);}
+.nav-btn{font-family:var(--fd);font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:9px 20px;border-radius:4px;border:none;cursor:pointer;transition:all .2s;}
+.nav-btn-ghost{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);}
+.nav-btn-ghost:hover{background:rgba(255,255,255,.2);color:#fff;}
+.nav-btn-solid{background:var(--teal);color:#fff;}
+.nav-btn-solid:hover{background:var(--teal2);}
+.tc{background:#fff;border:1px solid var(--paper2);border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1.5fr;margin-bottom:20px;transition:box-shadow .2s,transform .2s;}
+.tc:hover{box-shadow:0 6px 32px rgba(15,31,46,.1);transform:translateY(-2px);}
+.tc.flip{grid-template-columns:1.5fr 1fr;}
+.tc.flip .tc-vis{order:2;}
+.tc-vis{background:var(--navy);padding:26px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.tc-emoji{font-size:2rem;margin-bottom:11px;position:relative;z-index:1;}
+.tc-tag{font-size:.64rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal2);margin-bottom:7px;position:relative;z-index:1;}
+.tc-vis h3{font-family:var(--fl);font-size:1.25rem;font-weight:600;line-height:1.2;color:#fff;margin-bottom:7px;position:relative;z-index:1;}
+.tc-vis h3 em{font-style:italic;color:var(--teal2);}
+.tc-vis p{font-size:.8rem;line-height:1.65;color:rgba(255,255,255,.42);position:relative;z-index:1;}
+.tc-body{padding:26px;display:flex;flex-direction:column;justify-content:center;}
+.tc-label{font-size:.69rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:13px;}
+.tc-features{display:flex;flex-direction:column;gap:9px;margin-bottom:20px;}
+.tc-feat{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;line-height:1.5;color:var(--mid);}
+.tc-dot{width:18px;height:18px;border-radius:50%;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;font-size:.64rem;color:var(--teal);flex-shrink:0;margin-top:1px;}
+.tc-btn{display:inline-flex;align-items:center;gap:10px;color:#fff;font-family:var(--fd);font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:11px 20px;border-radius:4px;border:none;cursor:pointer;transition:all .2s;align-self:flex-start;}
+.tc-btn.teal{background:var(--navy);}.tc-btn.teal:hover{background:var(--teal);}
+.tc-btn.amber{background:var(--amber);}.tc-btn.amber:hover{background:#d4870a;}
+.tc-btn.purple{background:#7c3aed;}.tc-btn.purple:hover{background:#6d28d9;}
+.tc-arrow{width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.71rem;}
+.tc-arrow.teal{background:var(--teal);}
+.tc-arrow.amber,.tc-arrow.purple{background:rgba(255,255,255,.25);}
+.btn-ghost{font-family:var(--fd);font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:none;border:1.5px solid var(--paper2);padding:9px 18px;border-radius:4px;cursor:pointer;transition:all .2s;}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
+.btn-solid{font-family:var(--fd);font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--navy);padding:10px 22px;border:none;border-radius:4px;cursor:pointer;transition:background .2s;}
+.btn-solid:hover{background:var(--teal);}
+.disc{background:var(--amber-pale);border:1px solid rgba(240,165,0,.22);border-radius:4px;padding:11px 15px;font-size:.76rem;color:#7a5c00;line-height:1.6;}
+.check-body{max-width:740px;margin:0 auto;padding:38px 24px 0;}
+.prog-wrap{margin-bottom:32px;}
+.prog-top{display:flex;justify-content:space-between;margin-bottom:7px;}
+.prog-cat{font-size:.69rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);}
+.prog-num{font-size:.69rem;font-weight:600;color:var(--mid);}
+.prog-bar{height:3px;background:var(--paper2);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--teal);border-radius:2px;transition:width .5s ease;}
+.q-card{background:#fff;border-radius:8px;padding:36px;box-shadow:0 2px 18px rgba(15,31,46,.07);border:1px solid var(--paper2);}
+.q-cat{font-size:.67rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:11px;}
+.q-text{font-family:var(--fl);font-size:1.35rem;font-weight:600;line-height:1.3;color:var(--ink);margin-bottom:10px;}
+.q-explain{font-size:.83rem;line-height:1.75;color:var(--mid);padding:11px 14px;background:var(--paper);border-radius:4px;border-left:3px solid var(--paper2);margin-bottom:24px;}
+.ans-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
+.ans-btn{padding:14px 15px;border:2px solid var(--paper2);border-radius:6px;background:#fff;font-family:var(--fd);font-size:.87rem;font-weight:500;color:var(--ink);cursor:pointer;text-align:left;transition:all .2s;display:flex;align-items:center;gap:10px;}
+.ans-btn:hover{border-color:var(--teal);}
+.ans-btn.sel{border-color:var(--teal);background:var(--teal-pale);}
+.ans-ic{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--paper2);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;transition:all .2s;}
+.ans-btn:hover .ans-ic,.ans-btn.sel .ans-ic{border-color:var(--teal);background:var(--teal);color:#fff;}
+.q-nav{display:flex;justify-content:space-between;align-items:center;}
+.btn-prev{font-family:var(--fd);font-size:.73rem;font-weight:600;color:var(--mid);background:none;border:none;cursor:pointer;}
+.btn-prev:hover{color:var(--ink);}
+.btn-next{font-family:var(--fd);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--navy);padding:11px 24px;border:none;border-radius:4px;cursor:pointer;transition:background .2s;}
+.btn-next:hover:not(:disabled){background:var(--teal);}
+.btn-next:disabled{opacity:.3;pointer-events:none;}
+.r-hero{background:var(--navy);border-radius:8px;padding:36px 28px;text-align:center;margin-bottom:18px;position:relative;overflow:hidden;}
+.r-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(13,124,102,.25) 0%,transparent 65%);}
+.r-score{font-family:var(--fl);font-size:4.2rem;font-weight:600;line-height:1;position:relative;z-index:1;}
+.r-title{font-family:var(--fl);font-size:1.3rem;font-weight:600;color:#fff;margin:9px 0 7px;position:relative;z-index:1;}
+.r-sub{font-size:.86rem;color:rgba(255,255,255,.58);max-width:380px;margin:0 auto;line-height:1.7;position:relative;z-index:1;}
+.r-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.r-sec{background:#fff;border-radius:8px;padding:20px;border:1px solid var(--paper2);}
+.r-sec h3{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:13px;padding-bottom:9px;border-bottom:1px solid var(--paper2);}
+.bdi{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--paper);font-size:.82rem;}
+.bdi:last-child{border:none;}
+.bdi-ic{width:18px;height:18px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.66rem;margin-top:1px;}
+.bdi-ic.ok{background:#e6f7f4;color:var(--teal);}.bdi-ic.warn{background:var(--amber-pale);color:#d4870a;}.bdi-ic.bad{background:var(--red-pale);color:var(--red);}
+.bdi-q{font-weight:500;color:var(--ink);line-height:1.4;}
+.bdi-tip{font-size:.75rem;color:var(--mid);margin-top:2px;line-height:1.5;}
+.spec-box{background:#fff;border-radius:8px;border:1px solid var(--paper2);padding:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;}
+.r-btns{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px;}
+.sc{background:#fff;border-radius:8px;border:1px solid var(--paper2);overflow:hidden;margin-bottom:13px;transition:box-shadow .2s,transform .2s;}
+.sc:hover{box-shadow:0 5px 22px rgba(15,31,46,.09);transform:translateY(-1px);}
+.sc-hdr{display:flex;align-items:center;gap:13px;padding:18px 20px;}
+.sc-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+.sc-icon.tl{background:var(--teal-pale);}.sc-icon.nv{background:rgba(15,31,46,.06);}
+.sc-meta h3{font-size:.94rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.sc-meta p{font-size:.8rem;color:var(--mid);line-height:1.5;}
+.sc-badge{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;white-space:nowrap;margin-left:auto;}
+.sc-badge.rel{background:var(--teal-pale);color:var(--teal);}.sc-badge.opt{background:var(--paper2);color:var(--mid);}
+.sc-body{margin:0 20px;padding:13px 0 18px;border-top:1px solid var(--paper);}
+.tp-row{display:flex;flex-wrap:wrap;gap:6px;}
+.tp{font-size:.71rem;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--paper);color:var(--mid);border:1px solid var(--paper2);}
+.tp.act{background:var(--teal-pale);color:var(--teal);border-color:rgba(13,124,102,.2);}
+.cf-wrap{background:#fff;border-radius:8px;border:1px solid var(--paper2);overflow:hidden;margin-top:18px;}
+.cf-hdr{background:var(--navy);padding:20px 26px;}
+.cf-hdr h2{font-family:var(--fl);font-size:1.15rem;font-weight:600;color:#fff;margin-bottom:3px;}
+.cf-hdr p{font-size:.83rem;color:rgba(255,255,255,.52);line-height:1.6;}
+.cf-body{padding:24px;}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px;}
+.f-row.full{grid-template-columns:1fr;}
+.fg{display:flex;flex-direction:column;gap:4px;}
+.fg label{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);}
+.fg input,.fg textarea{padding:9px 12px;border:1.5px solid var(--paper2);border-radius:4px;font-family:var(--fd);font-size:.87rem;color:var(--ink);background:var(--paper);outline:none;transition:border-color .2s,box-shadow .2s;}
+.fg input:focus,.fg textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,124,102,.1);background:#fff;}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--light);}
+.fg textarea{resize:vertical;min-height:88px;}
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;}
+.chk-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--paper2);border-radius:4px;cursor:pointer;font-size:.81rem;transition:all .2s;}
+.chk-item:hover{border-color:var(--teal);}.chk-item.on{border-color:var(--teal);background:var(--teal-pale);}
+.chk-item input{accent-color:var(--teal);cursor:pointer;flex-shrink:0;}
+.urg-row{display:flex;gap:7px;margin-top:4px;}
+.urg-btn{flex:1;padding:8px;border:1.5px solid var(--paper2);border-radius:4px;font-family:var(--fd);font-size:.76rem;font-weight:500;color:var(--mid);background:var(--paper);cursor:pointer;text-align:center;transition:all .2s;}
+.urg-btn:hover{border-color:var(--teal);}.urg-btn.sel{border-color:var(--teal);background:var(--teal-pale);color:var(--teal);}
+.submit-row{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--paper2);flex-wrap:wrap;gap:12px;}
+.submit-note{font-size:.73rem;color:var(--light);max-width:270px;line-height:1.5;}
+.btn-submit{background:var(--teal);color:#fff;font-family:var(--fd);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:11px 26px;border:none;border-radius:4px;cursor:pointer;transition:background .2s;}
+.btn-submit:hover{background:var(--teal2);}
+.success-wrap{padding:40px 24px;text-align:center;}
+.success-wrap h2{font-family:var(--fl);font-size:1.5rem;font-weight:600;color:var(--teal);margin-bottom:8px;}
+.success-wrap p{font-size:.87rem;color:var(--mid);line-height:1.75;max-width:340px;margin:0 auto 20px;}
+.tool-nav-bar{display:flex;background:var(--navy);overflow-x:auto;padding:0 20px;}
+.t-tab{padding:12px 18px;font-family:var(--fd);font-size:.8rem;font-weight:500;color:rgba(255,255,255,.4);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+.t-tab:hover{color:rgba(255,255,255,.72);}.t-tab.active{color:#fff;border-bottom-color:var(--teal2);}
+.tool-body{max-width:1040px;margin:0 auto;padding:26px 22px 0;}
+.t-panel{display:none;}.t-panel.active{display:block;}
+.t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:11px;margin-bottom:20px;}
+.t-card{background:#fff;border-radius:8px;padding:17px;border:1px solid var(--paper2);position:relative;overflow:hidden;}
+.t-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,var(--teal2));border-radius:8px 8px 0 0;}
+.t-card-label{font-size:.69rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
+.t-card-val{font-family:var(--fl);font-size:1.5rem;font-weight:400;line-height:1;margin-bottom:2px;}
+.t-card-sub{font-size:.73rem;color:var(--light);}
+.t-info{background:var(--teal-pale);border-left:3px solid var(--teal2);border-radius:0 6px 6px 0;padding:11px 14px;margin-bottom:18px;font-size:.82rem;color:var(--teal);line-height:1.65;}
+.t-form-card{background:#fff;border-radius:8px;padding:20px;border:1px solid var(--paper2);}
+.t-form-title{font-size:.87rem;font-weight:700;margin-bottom:13px;}
+.t-form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:11px;margin-bottom:11px;}
+.t-fg{display:flex;flex-direction:column;gap:4px;}
+.t-lbl{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--mid);}
+.t-inp{padding:8px 11px;border:1.5px solid var(--paper2);border-radius:4px;font-family:var(--fd);font-size:.86rem;color:var(--ink);background:var(--paper);outline:none;transition:border-color .2s,box-shadow .2s;width:100%;}
+.t-inp:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,124,102,.1);background:#fff;}
+.t-inp::placeholder{color:var(--light);}
+.t-preview{border-radius:6px;padding:10px 13px;margin-bottom:11px;display:flex;gap:19px;flex-wrap:wrap;}
+.t-preview.g{background:var(--teal-pale);}.t-preview.a{background:var(--amber-pale);}
+.t-preview-item span{font-size:.7rem;color:var(--mid);display:block;margin-bottom:2px;}
+.t-preview-item b{font-family:var(--fl);font-size:1rem;}
+.t-preview.g b{color:var(--teal);}.t-preview.a b{color:var(--amber);}
+.t-form-btns{display:flex;gap:8px;justify-content:flex-end;}
+.t-btn-pri{background:var(--teal);color:#fff;font-family:var(--fd);font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:9px 17px;border:none;border-radius:4px;cursor:pointer;transition:background .2s;}
+.t-btn-pri:hover{background:var(--teal2);}
+.t-btn-sec{background:var(--paper);color:var(--mid);font-family:var(--fd);font-size:.76rem;font-weight:500;padding:9px 14px;border:1px solid var(--paper2);border-radius:4px;cursor:pointer;transition:all .2s;}
+.t-btn-sec:hover{border-color:var(--ink);color:var(--ink);}
+.t-btn-del{background:var(--red-pale);color:var(--red);border:1px solid #f5c6c2;font-family:var(--fd);font-size:.71rem;font-weight:600;padding:4px 8px;border-radius:3px;cursor:pointer;}
+.t-tbl-wrap{background:#fff;border-radius:8px;border:1px solid var(--paper2);overflow:hidden;margin-top:15px;}
+.t-tbl-wrap table{width:100%;border-collapse:collapse;}
+.t-th{background:var(--paper);padding:8px 10px;font-size:.67rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);text-align:left;border-bottom:1px solid var(--paper2);}
+.t-td{padding:9px 10px;font-size:.83rem;border-bottom:1px solid var(--paper2);}
+.t-leeg{padding:26px;text-align:center;color:var(--light);font-size:.84rem;}
+.t-tbl-foot{background:var(--paper);padding:10px 11px;border-top:2px solid var(--teal2);display:flex;justify-content:flex-end;gap:20px;flex-wrap:wrap;}
+.t-tbl-foot-item .fl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-bottom:2px;}
+.t-tbl-foot-item .fv{font-family:var(--fl);font-size:1.02rem;}
+.t-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.68rem;font-weight:600;}
+.t-badge-g{background:var(--teal-pale);color:var(--teal);}.t-badge-a{background:var(--amber-pale);color:#d4870a;}
+.btw-blok{background:#fff;border-radius:8px;border:1px solid var(--paper2);overflow:hidden;margin-bottom:14px;}
+.btw-blok-hdr{background:var(--navy);padding:17px 20px;}
+.btw-blok-hdr h3{font-family:var(--fl);font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:2px;}
+.btw-blok-hdr p{font-size:.75rem;color:rgba(255,255,255,.45);}
+.btw-blok-body{padding:18px 20px;}
+.btw-rij{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--paper2);}
+.btw-rij:last-child{border:none;}
+.btw-rij-lbl{font-size:.85rem;color:var(--mid);}
+.btw-rij-val{font-family:var(--fl);font-size:1.02rem;}
+.btw-totaal{background:var(--teal-pale);margin:-18px;margin-top:11px;padding:13px 19px;display:flex;justify-content:space-between;align-items:center;}
+.btw-totaal-lbl{font-weight:700;font-size:.84rem;color:var(--teal);}
+.btw-totaal-val{font-family:var(--fl);font-size:1.5rem;color:var(--teal);}
+.btw-deadline{background:#fff;border-radius:8px;border:1px solid var(--paper2);padding:17px 20px;}
+.btw-deadline h3{font-size:.85rem;font-weight:700;margin-bottom:10px;}
+.dl-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--paper2);font-size:.8rem;color:var(--mid);}
+.dl-row:last-child{border:none;}
+.bov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:10px;}
+.bov-item{background:var(--paper);border-radius:6px;padding:11px;text-align:center;}
+.bov-item.highlight{background:var(--teal-pale);border:1px solid rgba(13,124,102,.15);}
+.bov-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-bottom:3px;}
+.bov-item.highlight .bov-label{color:var(--teal);}
+.bov-val{font-family:var(--fl);font-size:1.12rem;}
+.ts-bar{display:flex;gap:7px;margin-bottom:30px;align-items:center;}
+.ts{width:32px;height:32px;border-radius:50%;background:var(--paper2);color:var(--mid);font-weight:700;font-size:.82rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;}
+.ts.active{background:var(--amber);color:#fff;}.ts.done{background:var(--teal);color:#fff;}
+.ts-line{flex:1;height:2px;background:var(--paper2);border-radius:2px;overflow:hidden;}
+.ts-line-fill{height:100%;background:var(--amber);border-radius:2px;width:0%;transition:width .5s ease;}
+.tarief-card{background:#fff;border-radius:8px;padding:34px;box-shadow:0 2px 18px rgba(15,31,46,.07);border:1px solid var(--paper2);}
+.tarief-eyebrow{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:11px;}
+.tarief-title{font-family:var(--fl);font-size:1.35rem;font-weight:600;line-height:1.3;color:var(--ink);margin-bottom:7px;}
+.tarief-sub{font-size:.84rem;line-height:1.7;color:var(--mid);margin-bottom:22px;}
+.tarief-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:22px;}
+.tarief-opts.single{grid-template-columns:1fr;}
+.t-opt{padding:12px 14px;border:2px solid var(--paper2);border-radius:6px;background:#fff;font-family:var(--fd);font-size:.84rem;font-weight:500;color:var(--ink);cursor:pointer;text-align:left;transition:all .2s;display:flex;align-items:center;gap:9px;}
+.t-opt:hover{border-color:var(--amber);}.t-opt.sel{border-color:var(--amber);background:var(--amber-pale);}
+.t-opt-ic{width:23px;height:23px;border-radius:50%;border:1.5px solid var(--paper2);display:flex;align-items:center;justify-content:center;font-size:.73rem;flex-shrink:0;transition:all .2s;}
+.t-opt:hover .t-opt-ic,.t-opt.sel .t-opt-ic{border-color:var(--amber);background:var(--amber);color:#fff;}
+.tarief-nav{display:flex;justify-content:space-between;align-items:center;}
+.tarief-btn{font-family:var(--fd);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 24px;border:none;border-radius:4px;cursor:pointer;transition:background .2s;}
+.tarief-btn.pri{background:var(--amber);color:#fff;}.tarief-btn.pri:hover{background:#d4870a;}.tarief-btn.pri:disabled{opacity:.35;pointer-events:none;}
+.tarief-btn.sec{background:none;color:var(--mid);border:none;}.tarief-btn.sec:hover{color:var(--ink);}
+.tarief-result-hero{background:var(--navy);border-radius:8px;padding:34px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden;}
+.tarief-result-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(240,165,0,.18) 0%,transparent 65%);}
+.tr-label{font-size:.69rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.43);margin-bottom:9px;position:relative;z-index:1;}
+.tr-val{font-family:var(--fl);font-size:4rem;font-weight:600;color:var(--amber);line-height:1;position:relative;z-index:1;}
+.tr-range{font-size:.87rem;color:rgba(255,255,255,.53);margin-top:7px;position:relative;z-index:1;}
+.tr-sector{font-family:var(--fl);font-size:1.15rem;font-weight:600;color:#fff;margin-top:10px;position:relative;z-index:1;}
+.tarief-breakdown{background:#fff;border-radius:8px;border:1px solid var(--paper2);overflow:hidden;margin-bottom:14px;}
+.tr-row{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid var(--paper2);}
+.tr-row:last-child{border:none;}
+.tr-row-lbl{font-size:.83rem;color:var(--mid);}
+.tr-row-val{font-family:var(--fl);font-size:1rem;}
+.tarief-project{background:#fff;border-radius:8px;border:1px solid var(--paper2);padding:20px;margin-bottom:14px;}
+.tarief-project h3{font-size:.84rem;font-weight:700;margin-bottom:13px;}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.proj-item{background:var(--paper);border-radius:6px;padding:11px;text-align:center;}
+.proj-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-bottom:3px;}
+.proj-val{font-family:var(--fl);font-size:1.15rem;color:var(--amber);}
+.tarief-warn{border-radius:6px;padding:11px 14px;font-size:.8rem;line-height:1.6;margin-bottom:11px;display:flex;gap:9px;align-items:flex-start;}
+.tarief-warn.red{background:var(--red-pale);color:var(--red);border:1px solid #f5c6c2;}
+.tarief-warn.green{background:var(--teal-pale);color:var(--teal);border:1px solid rgba(13,124,102,.2);}
+.kor-faq{border-bottom:1px solid var(--paper2);}
+.kor-faq:last-child{border:none;}
+.kor-faq-q{display:flex;justify-content:space-between;align-items:center;padding:12px 0;font-size:.87rem;font-weight:600;color:var(--ink);cursor:pointer;user-select:none;}
+.kor-faq-q:hover{color:#7c3aed;}
+.kor-faq-a{font-size:.83rem;line-height:1.75;color:var(--mid);padding-bottom:12px;display:none;}
+.kor-faq-a.open{display:block;}
+#nl-modal{display:none;position:fixed;inset:0;background:rgba(15,31,46,.88);z-index:999;align-items:center;justify-content:center;}
+@media(max-width:768px){
+  .tc{grid-template-columns:1fr!important;}.tc.flip .tc-vis{order:0!important;}
+  .tc-body,.tc-vis{padding:18px 16px!important;}
+  .ans-grid,.r-grid,.f-row,.chk-grid,.tarief-opts,.proj-grid{grid-template-columns:1fr!important;}
+  [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important;}
+  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  [style*="padding:48px"]{padding:32px 18px!important;}
+  [style*="padding:36px 48px"],[style*="padding:38px 48px"]{padding:24px 16px!important;}
+  .q-card,.tarief-card{padding:20px 16px!important;}
+  .check-body{padding:24px 14px 0!important;}
+  .tool-body{padding:18px 12px 0!important;}
+  .cf-body{padding:16px 14px!important;}
+  .submit-row{flex-direction:column;align-items:flex-start;}
+}
+</style>
+
+<svg style="display:none"><symbol id="logo-icon" viewBox="0 0 36 36"><path d="M18 2L32 8L32 20C32 28 25 33 18 35C11 33 4 28 4 20L4 8Z" fill="#0d7c66"/><path d="M11 13L25 13L14 23L25 23" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol></svg>
+<div id="page-landing" class="page active">
+<nav style="background:#0f1f2e;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+  <a href="#" class="logo logo-w" onclick="return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a>
+  <div style="display:flex;gap:7px;flex-wrap:wrap;">
+    <button class="nav-btn nav-btn-ghost" onclick="startCheck()">DBA-check</button>
+    <button class="nav-btn nav-btn-ghost" onclick="toonPagina('tarief')">Uurtarief</button>
+    <button class="nav-btn nav-btn-ghost" onclick="toonPagina('kor')">KOR-regeling</button>
+    <button class="nav-btn nav-btn-solid" onclick="toonPagina('tool')">Kwartaaltool</button>
+  </div>
+</nav>
+<div style="background:#0f1f2e;padding:36px 48px 28px;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(13,124,102,.18) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="position:relative;z-index:1;max-width:600px;margin:0 auto;">
+    <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(13,124,102,.2);border:1px solid rgba(13,124,102,.3);border-radius:20px;padding:5px 13px;font-size:.71rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#12a085;margin-bottom:16px;">Gratis &middot; Voor iedere ZZP'er &middot; Geen account nodig</div>
+    <h1 style="font-family:var(--fl);font-size:clamp(1.7rem,4vw,2.9rem);font-weight:600;line-height:1.15;color:#fff;margin-bottom:10px;">Alles wat je nodig hebt als <em style="font-style:italic;color:#12a085;">ZZP'er</em></h1>
+    <p style="font-size:.9rem;line-height:1.7;color:rgba(255,255,255,.6);max-width:480px;margin:0 auto;">Kies hieronder een tool of lees meer over de regels rondom ZZP.</p>
+  </div>
+</div>
+<div style="padding:32px 48px;background:var(--paper);">
+  <div style="max-width:940px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:24px;">
+      <div style="font-size:.69rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:9px;">Kies een tool</div>
+      <h2 style="font-family:var(--fl);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:600;color:var(--ink);">Wat wil je vandaag <em style="font-style:italic;color:var(--teal);">regelen?</em></h2>
+    </div>
+    <div class="tc">
+      <div class="tc-vis"><div class="tc-emoji">&#9878;&#65039;</div><div class="tc-tag">Gratis &middot; 3 minuten &middot; Anoniem</div><h3>Gratis <em>DBA-check</em></h3><p>Voldoe jij aan de Wet DBA? Doe de check in 3 minuten.</p></div>
+      <div class="tc-body"><div class="tc-label">Wat doet de DBA-check?</div><div class="tc-features"><div class="tc-feat"><div class="tc-dot">&#10003;</div><div>10 vragen op basis van de officiele criteria van de Belastingdienst</div></div><div class="tc-feat"><div class="tc-dot">&#10003;</div><div>Direct je score en een overzicht van risicopunten</div></div><div class="tc-feat"><div class="tc-dot">&#10003;</div><div>Concrete tips per aandachtspunt om je situatie te verbeteren</div></div><div class="tc-feat"><div class="tc-dot">&#10003;</div><div>Optionele doorverwijzing naar een specialist</div></div></div><button class="tc-btn teal" onclick="startCheck()">Start de DBA-check <span class="tc-arrow teal">&#8594;</span></button></div>
+    </div>
+    <div class="tc flip" style="border:none;background:linear-gradient(135deg,#0f1f2e 60%,#1a3347);">
+      <div class="tc-body" style="background:#fff;"><div class="tc-label" style="color:var(--amber);">Doe hier je check voor je uurtarief of projectprijs</div><div class="tc-features"><div class="tc-feat"><div class="tc-dot" style="background:var(--amber-pale);color:var(--amber);">&#10003;</div><div>Gepersonaliseerd advies op basis van sector, opleiding en ervaring</div></div><div class="tc-feat"><div class="tc-dot" style="background:var(--amber-pale);color:var(--amber);">&#10003;</div><div>Vergelijk met het marktgemiddelde in jouw branche (2025)</div></div><div class="tc-feat"><div class="tc-dot" style="background:var(--amber-pale);color:var(--amber);">&#10003;</div><div>Bereken ook een vaste projectprijs op basis van je uurtarief</div></div><div class="tc-feat"><div class="tc-dot" style="background:var(--amber-pale);color:var(--amber);">&#10003;</div><div>Check of je tarief boven het wettelijk minimum van &euro;33/uur zit</div></div></div><button class="tc-btn amber" onclick="toonPagina('tarief')">Bereken mijn uurtarief <span class="tc-arrow amber">&#8594;</span></button></div>
+      <div class="tc-vis" style="background:transparent;"><div class="tc-emoji">&#128182;</div><div class="tc-tag" style="color:var(--amber);">Gratis &middot; Marktdata 2025</div><h3 style="color:#fff;">Bereken je <em style="color:var(--amber);">uurtarief</em></h3><p>Op basis van sector, opleiding en ervaring berekenen we een marktconform tarief.</p></div>
+    </div>
+    <div class="tc">
+      <div class="tc-vis"><div class="tc-emoji">&#129534;</div><div class="tc-tag">Gratis &middot; PDF export &middot; Opgeslagen in browser</div><h3>Kwartaal<em>aangifte</em> tool</h3><p>Bereken je BTW-aangifte zonder boekhoudkennis.</p></div>
+      <div class="tc-body"><div class="tc-label">Wat doet de kwartaaltool?</div><div class="tc-features"><div class="tc-feat"><div class="tc-dot">&#10003;</div><div>Inkomsten en uitgaven bijhouden per kwartaal</div></div><div class="tc-feat"><div class="tc-dot">&#10003;</div><div>BTW automatisch berekend &mdash; zie wat je terugkrijgt of betaalt</div></div><div class="tc-feat"><div class="tc-dot">&#10003;</div><div>Maandoverzicht: in een oogopslag wat je overhoudt</div></div><div class="tc-feat"><div class="tc-dot">&#10003;</div><div>Exporteer als PDF voor de Belastingdienst</div></div></div><button class="tc-btn teal" onclick="toonPagina('tool')">Open de kwartaaltool <span class="tc-arrow teal">&#8594;</span></button></div>
+    </div>
+    <div class="tc flip" style="border:none;background:linear-gradient(135deg,#4c1d95,#7c3aed);">
+      <div class="tc-body" style="background:#fff;"><div class="tc-label" style="color:#7c3aed;">Kleine Ondernemersregeling</div><div class="tc-features"><div class="tc-feat"><div class="tc-dot" style="background:#f3e8ff;color:#7c3aed;">&#10003;</div><div>Wanneer kom je in aanmerking voor de KOR?</div></div><div class="tc-feat"><div class="tc-dot" style="background:#f3e8ff;color:#7c3aed;">&#10003;</div><div>Wat zijn de voor- en nadelen voor jouw situatie?</div></div><div class="tc-feat"><div class="tc-dot" style="background:#f3e8ff;color:#7c3aed;">&#10003;</div><div>Hoe meld je je aan en wat verandert er dan?</div></div><div class="tc-feat"><div class="tc-dot" style="background:#f3e8ff;color:#7c3aed;">&#10003;</div><div>Rekenvoorbeelden: is de KOR voordelig voor jou?</div></div></div><button class="tc-btn purple" onclick="toonPagina('kor')">Lees de KOR-uitleg <span class="tc-arrow purple">&#8594;</span></button></div>
+      <div class="tc-vis" style="background:transparent;"><div class="tc-emoji">&#128203;</div><div class="tc-tag" style="color:#c4b5fd;">BTW-vrijstelling</div><h3 style="color:#fff;">De <em style="color:#c4b5fd;">KOR-regeling</em></h3><p>Minder dan &euro;20.000 omzet? Dan hoef je mogelijk geen BTW te berekenen.</p></div>
+    </div>
+  </div>
+</div>
+
+<div style="background:#fff;padding:48px;border-top:2px solid #ece8e0;">
+  <div style="max-width:960px;margin:0 auto;text-align:center;margin-bottom:28px;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0d7c66;margin-bottom:8px;">Over Zeker ZZP</div>
+    <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#111827;">Wat is het <em style="font-style:italic;color:#0d7c66;">ZZP Informatiepunt?</em></h2>
+  </div>
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128203;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Betrouwbare informatie</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Wij bundelen alle relevante ZZP-informatie op een plek. Duidelijk en actueel.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128296;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Gratis tools</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Onze tools helpen je zelf de juiste berekeningen te maken. Geen account nodig.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#129309;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Doorverwijzing op maat</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Kom je er niet uit? We verwijzen je door naar de juiste specialist.</p></div>
+  </div>
+</div>
+<div style="background:#f0a500;padding:36px 48px;">
+  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px;">&#127775; Gratis weggever</div>
+      <div style="font-family:var(--fl);font-size:1.25rem;font-weight:600;color:#fff;margin-bottom:5px;">Wil je meer weten over het zijn van een ZZP'er?</div>
+      <div style="font-size:.85rem;color:rgba(255,255,255,.9);line-height:1.6;">Meld je aan en ontvang de <strong>gratis ZZP Startersgids</strong> direct in je mailbox.</div>
+    </div>
+    <button onclick="toonNlModal()" style="background:#fff;color:#f0a500;font-family:var(--fd);font-size:.79rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;flex-shrink:0;">&#8595; Ontvang de gratis gids</button>
+  </div>
+</div>
+<div style="background:#0f1f2e;padding:48px;">
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div>
+      <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#fff;line-height:1.15;margin-bottom:12px;">Volg ons voor<br><em style="font-style:italic;color:#12a085;">dagelijkse tips</em></h2>
+      <p style="font-size:.87rem;line-height:1.78;color:rgba(255,255,255,.55);margin-bottom:20px;">Op Instagram plaatsen we regelmatig posts over ZZP-onderwerpen: belasting, contracten en tarieven.</p>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);margin-bottom:10px;"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#128248;</div><span>Instagram: <strong style="color:#fff;">@zeker.zzp</strong></span></div>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#9993;</div><span>info@zeker-zzp.nl</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:24px;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d7c66,#12a085);border-radius:8px 8px 0 0;"></div>
+      <div style="font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#12a085;margin-bottom:14px;">Vind ons online</div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128248;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">Instagram</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">@zeker.zzp</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128279;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">LinkedIn</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">Zeker ZZP</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#9993;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">E-mail</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">info@zeker-zzp.nl</div></div><a href="mailto:info@zeker-zzp.nl" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Mailen &#8594;</a></div>
+    </div>
+  </div>
+</div>
+<div style="background:#0f1f2e;border-top:1px solid rgba(255,255,255,.07);padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px;">
+  <a href="#" class="logo logo-w" onclick="toonPagina('landing');return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a>
+  <div style="font-size:.72rem;color:rgba(255,255,255,.28);">&copy; 2025 Zeker ZZP &mdash; Informatief, geen juridisch advies</div>
+</div>
+
+</div>
+
+<div id="page-check" class="page">
+<nav style="background:#0f1f2e;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;"><a href="#" class="logo logo-w" onclick="return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a><button class="nav-btn nav-btn-ghost" onclick="toonPagina('landing')">&larr; Terug</button></nav>
+<div class="check-body">
+  <div class="prog-wrap" id="prog-wrap">
+    <div class="prog-top"><span class="prog-cat" id="prog-cat">Zelfstandigheid</span><span class="prog-num" id="prog-num">Vraag 1 van 10</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:10%"></div></div>
+  </div>
+  <div id="q-area"></div>
+  <div id="result-area" style="display:none;"></div>
+</div>
+<div style="height:44px;"></div>
+
+<div style="background:#fff;padding:48px;border-top:2px solid #ece8e0;">
+  <div style="max-width:960px;margin:0 auto;text-align:center;margin-bottom:28px;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0d7c66;margin-bottom:8px;">Over Zeker ZZP</div>
+    <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#111827;">Wat is het <em style="font-style:italic;color:#0d7c66;">ZZP Informatiepunt?</em></h2>
+  </div>
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128203;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Betrouwbare informatie</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Wij bundelen alle relevante ZZP-informatie op een plek. Duidelijk en actueel.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128296;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Gratis tools</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Onze tools helpen je zelf de juiste berekeningen te maken. Geen account nodig.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#129309;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Doorverwijzing op maat</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Kom je er niet uit? We verwijzen je door naar de juiste specialist.</p></div>
+  </div>
+</div>
+<div style="background:#f0a500;padding:36px 48px;">
+  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px;">&#127775; Gratis weggever</div>
+      <div style="font-family:var(--fl);font-size:1.25rem;font-weight:600;color:#fff;margin-bottom:5px;">Wil je meer weten over het zijn van een ZZP'er?</div>
+      <div style="font-size:.85rem;color:rgba(255,255,255,.9);line-height:1.6;">Meld je aan en ontvang de <strong>gratis ZZP Startersgids</strong> direct in je mailbox.</div>
+    </div>
+    <button onclick="toonNlModal()" style="background:#fff;color:#f0a500;font-family:var(--fd);font-size:.79rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;flex-shrink:0;">&#8595; Ontvang de gratis gids</button>
+  </div>
+</div>
+<div style="background:#0f1f2e;padding:48px;">
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div>
+      <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#fff;line-height:1.15;margin-bottom:12px;">Volg ons voor<br><em style="font-style:italic;color:#12a085;">dagelijkse tips</em></h2>
+      <p style="font-size:.87rem;line-height:1.78;color:rgba(255,255,255,.55);margin-bottom:20px;">Op Instagram plaatsen we regelmatig posts over ZZP-onderwerpen: belasting, contracten en tarieven.</p>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);margin-bottom:10px;"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#128248;</div><span>Instagram: <strong style="color:#fff;">@zeker.zzp</strong></span></div>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#9993;</div><span>info@zeker-zzp.nl</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:24px;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d7c66,#12a085);border-radius:8px 8px 0 0;"></div>
+      <div style="font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#12a085;margin-bottom:14px;">Vind ons online</div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128248;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">Instagram</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">@zeker.zzp</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128279;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">LinkedIn</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">Zeker ZZP</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#9993;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">E-mail</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">info@zeker-zzp.nl</div></div><a href="mailto:info@zeker-zzp.nl" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Mailen &#8594;</a></div>
+    </div>
+  </div>
+</div>
+<div style="background:#0f1f2e;border-top:1px solid rgba(255,255,255,.07);padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px;">
+  <a href="#" class="logo logo-w" onclick="toonPagina('landing');return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a>
+  <div style="font-size:.72rem;color:rgba(255,255,255,.28);">&copy; 2025 Zeker ZZP &mdash; Informatief, geen juridisch advies</div>
+</div>
+
+</div>
+
+<div id="page-spec" class="page">
+<nav style="background:#0f1f2e;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;"><a href="#" class="logo logo-w" onclick="return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a><button class="nav-btn nav-btn-ghost" onclick="toonPagina('check')">&larr; Terug naar resultaat</button></nav>
+<div style="max-width:840px;margin:0 auto;padding:36px 22px 0;"><div id="spec-body"></div></div>
+<div style="height:44px;"></div>
+
+<div style="background:#fff;padding:48px;border-top:2px solid #ece8e0;">
+  <div style="max-width:960px;margin:0 auto;text-align:center;margin-bottom:28px;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0d7c66;margin-bottom:8px;">Over Zeker ZZP</div>
+    <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#111827;">Wat is het <em style="font-style:italic;color:#0d7c66;">ZZP Informatiepunt?</em></h2>
+  </div>
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128203;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Betrouwbare informatie</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Wij bundelen alle relevante ZZP-informatie op een plek. Duidelijk en actueel.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128296;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Gratis tools</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Onze tools helpen je zelf de juiste berekeningen te maken. Geen account nodig.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#129309;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Doorverwijzing op maat</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Kom je er niet uit? We verwijzen je door naar de juiste specialist.</p></div>
+  </div>
+</div>
+<div style="background:#f0a500;padding:36px 48px;">
+  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px;">&#127775; Gratis weggever</div>
+      <div style="font-family:var(--fl);font-size:1.25rem;font-weight:600;color:#fff;margin-bottom:5px;">Wil je meer weten over het zijn van een ZZP'er?</div>
+      <div style="font-size:.85rem;color:rgba(255,255,255,.9);line-height:1.6;">Meld je aan en ontvang de <strong>gratis ZZP Startersgids</strong> direct in je mailbox.</div>
+    </div>
+    <button onclick="toonNlModal()" style="background:#fff;color:#f0a500;font-family:var(--fd);font-size:.79rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;flex-shrink:0;">&#8595; Ontvang de gratis gids</button>
+  </div>
+</div>
+<div style="background:#0f1f2e;padding:48px;">
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div>
+      <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#fff;line-height:1.15;margin-bottom:12px;">Volg ons voor<br><em style="font-style:italic;color:#12a085;">dagelijkse tips</em></h2>
+      <p style="font-size:.87rem;line-height:1.78;color:rgba(255,255,255,.55);margin-bottom:20px;">Op Instagram plaatsen we regelmatig posts over ZZP-onderwerpen: belasting, contracten en tarieven.</p>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);margin-bottom:10px;"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#128248;</div><span>Instagram: <strong style="color:#fff;">@zeker.zzp</strong></span></div>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#9993;</div><span>info@zeker-zzp.nl</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:24px;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d7c66,#12a085);border-radius:8px 8px 0 0;"></div>
+      <div style="font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#12a085;margin-bottom:14px;">Vind ons online</div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128248;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">Instagram</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">@zeker.zzp</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128279;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">LinkedIn</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">Zeker ZZP</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#9993;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">E-mail</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">info@zeker-zzp.nl</div></div><a href="mailto:info@zeker-zzp.nl" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Mailen &#8594;</a></div>
+    </div>
+  </div>
+</div>
+<div style="background:#0f1f2e;border-top:1px solid rgba(255,255,255,.07);padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px;">
+  <a href="#" class="logo logo-w" onclick="toonPagina('landing');return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a>
+  <div style="font-size:.72rem;color:rgba(255,255,255,.28);">&copy; 2025 Zeker ZZP &mdash; Informatief, geen juridisch advies</div>
+</div>
+
+</div>
+
+<div id="page-tool" class="page">
+<nav style="background:#0f1f2e;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+  <a href="#" class="logo logo-w" onclick="return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a>
+  <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap;">
+    <select id="kw-sel" class="nav-btn nav-btn-ghost" onchange="wisselKwartaal()" style="cursor:pointer;"><option value="K1">K1 jan-mrt</option><option value="K2">K2 apr-jun</option><option value="K3">K3 jul-sep</option><option value="K4">K4 okt-dec</option></select>
+    <select id="jr-sel" class="nav-btn nav-btn-ghost" onchange="wisselKwartaal()" style="cursor:pointer;"><option value="2024">2024</option><option value="2025" selected>2025</option><option value="2026">2026</option></select>
+    <button class="nav-btn nav-btn-ghost" onclick="exportPDF()" style="font-weight:700;">&#8595; PDF</button>
+    <button class="nav-btn nav-btn-ghost" onclick="toonPagina('landing')">&larr; Terug</button>
+  </div>
+</nav>
+<div class="tool-nav-bar">
+  <button class="t-tab active" onclick="openTab('dashboard')">&#127968; Dashboard</button>
+  <button class="t-tab" onclick="openTab('inkomsten')">&#128176; Inkomsten</button>
+  <button class="t-tab" onclick="openTab('uitgaven')">&#129534; Uitgaven</button>
+  <button class="t-tab" onclick="openTab('btw')">&#128202; BTW-aangifte</button>
+</div>
+<div class="tool-body">
+  <div id="t-panel-dashboard" class="t-panel active">
+    <div class="t-stat-grid">
+      <div class="t-card" style="--c:var(--teal2);"><div class="t-card-label">Inkomsten excl. BTW</div><div class="t-card-val" id="d-ink" style="color:var(--teal2);">&#8364; 0,00</div><div class="t-card-sub" id="d-ink-sub">0 facturen</div></div>
+      <div class="t-card" style="--c:var(--red);"><div class="t-card-label">Uitgaven excl. BTW</div><div class="t-card-val" id="d-uit" style="color:var(--red);">&#8364; 0,00</div><div class="t-card-sub" id="d-uit-sub">0 kostenposten</div></div>
+      <div class="t-card" style="--c:#4a90d9;"><div class="t-card-label">Winst</div><div class="t-card-val" id="d-winst" style="color:#4a90d9;">&#8364; 0,00</div><div class="t-card-sub">Inkomsten min uitgaven</div></div>
+      <div class="t-card" style="--c:var(--amber);"><div class="t-card-label">BTW-saldo</div><div class="t-card-val" id="d-btw" style="color:var(--amber);">&#8364; 0,00</div><div class="t-card-sub" id="d-btw-sub">Zie BTW-aangifte</div></div>
+    </div>
+    <div class="t-info"><strong>Hoe werkt dit?</strong> Voer bij Inkomsten elke betaalde factuur in. Voer bij Uitgaven je zakelijke kosten in. Dit dashboard berekent automatisch je winst en BTW-aangifte.</div>
+    <div class="t-tbl-wrap"><table><thead><tr><th class="t-th">Maand</th><th class="t-th">Inkomsten</th><th class="t-th">Uitgaven</th><th class="t-th">Winst</th><th class="t-th">BTW ontvangen</th><th class="t-th">BTW betaald</th></tr></thead><tbody id="mnd-tbody"><tr><td colspan="6" class="t-leeg">Voeg inkomsten of uitgaven toe om het overzicht te zien.</td></tr></tbody><tfoot><tr style="background:var(--teal-pale);font-weight:700;"><td class="t-td">Totaal</td><td class="t-td" id="tot-ink">&#8364; 0,00</td><td class="t-td" id="tot-uit">&#8364; 0,00</td><td class="t-td" id="tot-winst">&#8364; 0,00</td><td class="t-td" id="tot-bO">&#8364; 0,00</td><td class="t-td" id="tot-bB">&#8364; 0,00</td></tr></tfoot></table></div>
+  </div>
+  <div id="t-panel-inkomsten" class="t-panel">
+    <div class="t-info"><strong>Let op:</strong> Vul altijd het bedrag <strong>exclusief BTW</strong> in. De BTW wordt automatisch berekend.</div>
+    <div class="t-form-card"><div class="t-form-title">+ Nieuwe inkomst toevoegen</div>
+    <div class="t-form-grid"><div class="t-fg"><label class="t-lbl">Datum</label><input type="date" class="t-inp" id="i-datum"/></div><div class="t-fg"><label class="t-lbl">Omschrijving</label><input type="text" class="t-inp" id="i-omschr" placeholder="bijv. Website bouwen"/></div><div class="t-fg"><label class="t-lbl">Klant</label><input type="text" class="t-inp" id="i-klant" placeholder="bijv. Bedrijf BV"/></div><div class="t-fg"><label class="t-lbl">Factuurnummer</label><input type="text" class="t-inp" id="i-factuur" placeholder="bijv. 2025-001"/></div><div class="t-fg"><label class="t-lbl">Bedrag excl. BTW</label><input type="number" class="t-inp" id="i-bedrag" placeholder="0,00" step="0.01" min="0" oninput="iPreview()"/></div><div class="t-fg"><label class="t-lbl">BTW-tarief</label><select class="t-inp" id="i-btw" onchange="iPreview()"><option value="21">21% Standaard</option><option value="0">0% Geen BTW</option><option value="vrij">Vrijgesteld</option></select></div></div>
+    <div class="t-preview g"><div class="t-preview-item"><span>BTW bedrag</span><b id="i-prev-btw">&#8364; 0,00</b></div><div class="t-preview-item"><span>Totaal incl. BTW</span><b id="i-prev-tot">&#8364; 0,00</b></div></div>
+    <div class="t-form-btns"><button class="t-btn-sec" onclick="resetI()">Wissen</button><button class="t-btn-pri" onclick="voegIToe()">&#10003; Toevoegen</button></div></div>
+    <div class="t-tbl-wrap"><table><thead><tr><th class="t-th">Datum</th><th class="t-th">Omschrijving</th><th class="t-th">Klant</th><th class="t-th">Factuur</th><th class="t-th">Excl. BTW</th><th class="t-th">Tarief</th><th class="t-th">BTW</th><th class="t-th">Incl. BTW</th><th class="t-th"></th></tr></thead><tbody id="i-tbody"><tr><td colspan="9" class="t-leeg">Nog geen inkomsten toegevoegd.</td></tr></tbody></table><div class="t-tbl-foot" id="i-foot" style="display:none;"><div class="t-tbl-foot-item"><div class="fl">Excl. BTW</div><div class="fv" style="color:var(--teal2);" id="i-tot-e">&#8364; 0,00</div></div><div class="t-tbl-foot-item"><div class="fl">BTW</div><div class="fv" style="color:var(--amber);" id="i-tot-b">&#8364; 0,00</div></div><div class="t-tbl-foot-item"><div class="fl">Incl. BTW</div><div class="fv" style="color:var(--teal2);" id="i-tot-i">&#8364; 0,00</div></div></div></div>
+  </div>
+  <div id="t-panel-uitgaven" class="t-panel">
+    <div class="t-info"><strong>Tip:</strong> De BTW die je betaalt over zakelijke kosten kun je <strong>terugvragen</strong> van de Belastingdienst.</div>
+    <div class="t-form-card"><div class="t-form-title">+ Nieuwe uitgave toevoegen</div>
+    <div class="t-form-grid"><div class="t-fg"><label class="t-lbl">Datum</label><input type="date" class="t-inp" id="u-datum"/></div><div class="t-fg"><label class="t-lbl">Omschrijving</label><input type="text" class="t-inp" id="u-omschr" placeholder="bijv. Adobe abonnement"/></div><div class="t-fg"><label class="t-lbl">Categorie</label><select class="t-inp" id="u-cat"><option>Software en abonnementen</option><option>Kantoor en materiaal</option><option>Reiskosten</option><option>Marketing</option><option>Telefoon en internet</option><option>Opleiding</option><option>Verzekering</option><option>Overig</option></select></div><div class="t-fg"><label class="t-lbl">Leverancier</label><input type="text" class="t-inp" id="u-lev" placeholder="bijv. Adobe"/></div><div class="t-fg"><label class="t-lbl">Bedrag excl. BTW</label><input type="number" class="t-inp" id="u-bedrag" placeholder="0,00" step="0.01" min="0" oninput="uPreview()"/></div><div class="t-fg"><label class="t-lbl">BTW-tarief</label><select class="t-inp" id="u-btw" onchange="uPreview()"><option value="21">21% Standaard</option><option value="0">0% Geen BTW</option><option value="vrij">Geen BTW op bon</option></select></div></div>
+    <div class="t-preview a"><div class="t-preview-item"><span>BTW terug te vragen</span><b id="u-prev-btw">&#8364; 0,00</b></div><div class="t-preview-item"><span>Totaal incl. BTW</span><b id="u-prev-tot">&#8364; 0,00</b></div></div>
+    <div class="t-form-btns"><button class="t-btn-sec" onclick="resetU()">Wissen</button><button class="t-btn-pri" onclick="voegUToe()">&#10003; Toevoegen</button></div></div>
+    <div class="t-tbl-wrap"><table><thead><tr><th class="t-th">Datum</th><th class="t-th">Omschrijving</th><th class="t-th">Categorie</th><th class="t-th">Leverancier</th><th class="t-th">Excl. BTW</th><th class="t-th">Tarief</th><th class="t-th">BTW terug</th><th class="t-th">Incl. BTW</th><th class="t-th"></th></tr></thead><tbody id="u-tbody"><tr><td colspan="9" class="t-leeg">Nog geen uitgaven toegevoegd.</td></tr></tbody></table><div class="t-tbl-foot" id="u-foot" style="display:none;"><div class="t-tbl-foot-item"><div class="fl">Excl. BTW</div><div class="fv" style="color:var(--red);" id="u-tot-e">&#8364; 0,00</div></div><div class="t-tbl-foot-item"><div class="fl">BTW terug</div><div class="fv" style="color:var(--amber);" id="u-tot-b">&#8364; 0,00</div></div><div class="t-tbl-foot-item"><div class="fl">Incl. BTW</div><div class="fv" style="color:var(--red);" id="u-tot-i">&#8364; 0,00</div></div></div></div>
+  </div>
+  <div id="t-panel-btw" class="t-panel">
+    <div class="t-info">Lever de BTW-aangifte in via <strong>Mijn Belastingdienst Zakelijk</strong>.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+      <div class="btw-blok"><div class="btw-blok-hdr"><h3>BTW-berekening</h3><p id="btw-per">Kwartaal 2 2025</p></div><div class="btw-blok-body"><div class="btw-rij"><span class="btw-rij-lbl">BTW ontvangen van klanten</span><span class="btw-rij-val" style="color:var(--teal);" id="btw-o">&#8364; 0,00</span></div><div class="btw-rij"><span class="btw-rij-lbl">BTW betaald (aftrekbaar)</span><span class="btw-rij-val" style="color:var(--red);" id="btw-b">&#8722; &#8364; 0,00</span></div><div class="btw-totaal" id="btw-tot-blok"><span class="btw-totaal-lbl" id="btw-tot-lbl">Te betalen</span><span class="btw-totaal-val" id="btw-tot-val">&#8364; 0,00</span></div></div></div>
+      <div class="btw-deadline"><h3>&#128197; Deadlines</h3><div class="dl-row"><span>K1 jan-mrt</span><strong>30 april</strong></div><div class="dl-row"><span>K2 apr-jun</span><strong>31 juli</strong></div><div class="dl-row"><span>K3 jul-sep</span><strong>31 oktober</strong></div><div class="dl-row"><span>K4 okt-dec</span><strong>31 januari</strong></div></div>
+    </div>
+    <div style="background:#fff;border-radius:8px;border:1px solid var(--paper2);padding:18px;"><div style="font-size:.84rem;font-weight:700;margin-bottom:12px;">Volledig overzicht dit kwartaal</div><div class="bov-grid"><div class="bov-item"><div class="bov-label">Omzet excl. BTW</div><div class="bov-val" style="color:var(--teal);" id="bov-omzet">&#8364; 0,00</div></div><div class="bov-item"><div class="bov-label">Kosten excl. BTW</div><div class="bov-val" style="color:var(--red);" id="bov-kosten">&#8364; 0,00</div></div><div class="bov-item"><div class="bov-label">Winst</div><div class="bov-val" id="bov-winst">&#8364; 0,00</div></div><div class="bov-item highlight"><div class="bov-label">Netto in je zak</div><div class="bov-val" style="color:var(--teal);" id="bov-netto">&#8364; 0,00</div></div></div></div>
+  </div>
+</div>
+<div style="height:44px;"></div>
+
+<div style="background:#fff;padding:48px;border-top:2px solid #ece8e0;">
+  <div style="max-width:960px;margin:0 auto;text-align:center;margin-bottom:28px;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0d7c66;margin-bottom:8px;">Over Zeker ZZP</div>
+    <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#111827;">Wat is het <em style="font-style:italic;color:#0d7c66;">ZZP Informatiepunt?</em></h2>
+  </div>
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128203;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Betrouwbare informatie</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Wij bundelen alle relevante ZZP-informatie op een plek. Duidelijk en actueel.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128296;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Gratis tools</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Onze tools helpen je zelf de juiste berekeningen te maken. Geen account nodig.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#129309;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Doorverwijzing op maat</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Kom je er niet uit? We verwijzen je door naar de juiste specialist.</p></div>
+  </div>
+</div>
+<div style="background:#f0a500;padding:36px 48px;">
+  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px;">&#127775; Gratis weggever</div>
+      <div style="font-family:var(--fl);font-size:1.25rem;font-weight:600;color:#fff;margin-bottom:5px;">Wil je meer weten over het zijn van een ZZP'er?</div>
+      <div style="font-size:.85rem;color:rgba(255,255,255,.9);line-height:1.6;">Meld je aan en ontvang de <strong>gratis ZZP Startersgids</strong> direct in je mailbox.</div>
+    </div>
+    <button onclick="toonNlModal()" style="background:#fff;color:#f0a500;font-family:var(--fd);font-size:.79rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;flex-shrink:0;">&#8595; Ontvang de gratis gids</button>
+  </div>
+</div>
+<div style="background:#0f1f2e;padding:48px;">
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div>
+      <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#fff;line-height:1.15;margin-bottom:12px;">Volg ons voor<br><em style="font-style:italic;color:#12a085;">dagelijkse tips</em></h2>
+      <p style="font-size:.87rem;line-height:1.78;color:rgba(255,255,255,.55);margin-bottom:20px;">Op Instagram plaatsen we regelmatig posts over ZZP-onderwerpen: belasting, contracten en tarieven.</p>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);margin-bottom:10px;"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#128248;</div><span>Instagram: <strong style="color:#fff;">@zeker.zzp</strong></span></div>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#9993;</div><span>info@zeker-zzp.nl</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:24px;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d7c66,#12a085);border-radius:8px 8px 0 0;"></div>
+      <div style="font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#12a085;margin-bottom:14px;">Vind ons online</div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128248;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">Instagram</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">@zeker.zzp</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128279;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">LinkedIn</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">Zeker ZZP</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#9993;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">E-mail</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">info@zeker-zzp.nl</div></div><a href="mailto:info@zeker-zzp.nl" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Mailen &#8594;</a></div>
+    </div>
+  </div>
+</div>
+<div style="background:#0f1f2e;border-top:1px solid rgba(255,255,255,.07);padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px;">
+  <a href="#" class="logo logo-w" onclick="toonPagina('landing');return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a>
+  <div style="font-size:.72rem;color:rgba(255,255,255,.28);">&copy; 2025 Zeker ZZP &mdash; Informatief, geen juridisch advies</div>
+</div>
+
+</div>
+
+<div id="page-tarief" class="page">
+<nav style="background:#0f1f2e;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;"><a href="#" class="logo logo-w" onclick="return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a><button class="nav-btn nav-btn-ghost" onclick="toonPagina('landing')">&larr; Terug</button></nav>
+<div style="max-width:720px;margin:0 auto;padding:36px 22px 0;">
+  <div class="ts-bar">
+    <div class="ts active" id="ts1">1</div><div class="ts-line"><div class="ts-line-fill" id="ts-fill"></div></div>
+    <div class="ts" id="ts2">2</div><div class="ts-line"></div>
+    <div class="ts" id="ts3">3</div><div class="ts-line"></div>
+    <div class="ts" id="ts4">4</div>
+  </div>
+  <div id="tarief-content"></div>
+</div>
+<div style="height:44px;"></div>
+
+<div style="background:#fff;padding:48px;border-top:2px solid #ece8e0;">
+  <div style="max-width:960px;margin:0 auto;text-align:center;margin-bottom:28px;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0d7c66;margin-bottom:8px;">Over Zeker ZZP</div>
+    <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#111827;">Wat is het <em style="font-style:italic;color:#0d7c66;">ZZP Informatiepunt?</em></h2>
+  </div>
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128203;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Betrouwbare informatie</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Wij bundelen alle relevante ZZP-informatie op een plek. Duidelijk en actueel.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128296;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Gratis tools</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Onze tools helpen je zelf de juiste berekeningen te maken. Geen account nodig.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#129309;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Doorverwijzing op maat</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Kom je er niet uit? We verwijzen je door naar de juiste specialist.</p></div>
+  </div>
+</div>
+<div style="background:#f0a500;padding:36px 48px;">
+  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px;">&#127775; Gratis weggever</div>
+      <div style="font-family:var(--fl);font-size:1.25rem;font-weight:600;color:#fff;margin-bottom:5px;">Wil je meer weten over het zijn van een ZZP'er?</div>
+      <div style="font-size:.85rem;color:rgba(255,255,255,.9);line-height:1.6;">Meld je aan en ontvang de <strong>gratis ZZP Startersgids</strong> direct in je mailbox.</div>
+    </div>
+    <button onclick="toonNlModal()" style="background:#fff;color:#f0a500;font-family:var(--fd);font-size:.79rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;flex-shrink:0;">&#8595; Ontvang de gratis gids</button>
+  </div>
+</div>
+<div style="background:#0f1f2e;padding:48px;">
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div>
+      <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#fff;line-height:1.15;margin-bottom:12px;">Volg ons voor<br><em style="font-style:italic;color:#12a085;">dagelijkse tips</em></h2>
+      <p style="font-size:.87rem;line-height:1.78;color:rgba(255,255,255,.55);margin-bottom:20px;">Op Instagram plaatsen we regelmatig posts over ZZP-onderwerpen: belasting, contracten en tarieven.</p>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);margin-bottom:10px;"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#128248;</div><span>Instagram: <strong style="color:#fff;">@zeker.zzp</strong></span></div>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#9993;</div><span>info@zeker-zzp.nl</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:24px;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d7c66,#12a085);border-radius:8px 8px 0 0;"></div>
+      <div style="font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#12a085;margin-bottom:14px;">Vind ons online</div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128248;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">Instagram</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">@zeker.zzp</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128279;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">LinkedIn</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">Zeker ZZP</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#9993;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">E-mail</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">info@zeker-zzp.nl</div></div><a href="mailto:info@zeker-zzp.nl" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Mailen &#8594;</a></div>
+    </div>
+  </div>
+</div>
+<div style="background:#0f1f2e;border-top:1px solid rgba(255,255,255,.07);padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px;">
+  <a href="#" class="logo logo-w" onclick="toonPagina('landing');return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a>
+  <div style="font-size:.72rem;color:rgba(255,255,255,.28);">&copy; 2025 Zeker ZZP &mdash; Informatief, geen juridisch advies</div>
+</div>
+
+</div>
+
+<div id="page-kor" class="page">
+<nav style="background:#0f1f2e;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;"><a href="#" class="logo logo-w" onclick="return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a><button class="nav-btn nav-btn-ghost" onclick="toonPagina('landing')">&larr; Terug</button></nav>
+<div style="max-width:780px;margin:0 auto;padding:36px 22px 0;">
+<div style="background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:10px;padding:40px;text-align:center;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(255,255,255,.08) 0%,transparent 65%);"></div>
+  <div style="position:relative;z-index:1;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c4b5fd;margin-bottom:10px;">Belastingvoordeel voor kleine ondernemers</div>
+    <div style="font-family:var(--fl);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:#fff;line-height:1.1;margin-bottom:10px;">De <em style="font-style:italic;color:#c4b5fd;">KOR-regeling</em> uitgelegd</div>
+    <div style="font-size:.9rem;color:rgba(255,255,255,.65);max-width:460px;margin:0 auto;line-height:1.7;">Minder dan &euro;20.000 omzet? Dan hoef je mogelijk geen BTW te berekenen.</div>
+  </div>
+</div>
+<div style="background:#fff;border-radius:8px;border:1px solid #ece8e0;padding:28px;margin-bottom:18px;">
+  <h2 style="font-family:var(--fl);font-size:1.3rem;font-weight:600;color:#111827;margin-bottom:14px;">&#128203; Wat is de KOR?</h2>
+  <p style="font-size:.88rem;line-height:1.85;color:#5a6474;margin-bottom:12px;">De <strong style="color:#111827;">Kleine Ondernemersregeling (KOR)</strong> is een BTW-vrijstelling voor ondernemers met een omzet onder de &euro;20.000 per jaar.</p>
+  <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:12px;">
+    <div style="display:flex;gap:11px;align-items:flex-start;font-size:.87rem;color:#5a6474;"><span style="width:20px;height:20px;background:#e6f7f4;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#0d7c66;font-size:.68rem;flex-shrink:0;margin-top:1px;">&#10003;</span>Je berekent <strong style="color:#111827;">geen BTW</strong> op je facturen</div>
+    <div style="display:flex;gap:11px;align-items:flex-start;font-size:.87rem;color:#5a6474;"><span style="width:20px;height:20px;background:#e6f7f4;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#0d7c66;font-size:.68rem;flex-shrink:0;margin-top:1px;">&#10003;</span>Je doet <strong style="color:#111827;">geen BTW-aangifte</strong> meer per kwartaal</div>
+    <div style="display:flex;gap:11px;align-items:flex-start;font-size:.87rem;color:#5a6474;"><span style="width:20px;height:20px;background:#fdeae4;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9350f;font-size:.68rem;flex-shrink:0;margin-top:1px;">&#10005;</span>Je kunt BTW op zakelijke kosten <strong style="color:#111827;">niet meer terugvragen</strong></div>
+  </div>
+  <div style="background:#f6f3ee;border-radius:6px;padding:14px;font-size:.84rem;color:#5a6474;border-left:3px solid #7c3aed;line-height:1.7;"><strong style="color:#111827;">Belangrijk:</strong> Je bent na aanmelding minimaal <strong>3 jaar</strong> gebonden aan de KOR.</div>
+</div>
+<div style="background:#fff;border-radius:8px;border:1px solid #ece8e0;padding:28px;margin-bottom:18px;">
+  <h2 style="font-family:var(--fl);font-size:1.3rem;font-weight:600;color:#111827;margin-bottom:18px;">&#128200; Wanneer is de KOR voordelig?</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:18px;"><div style="font-size:.78rem;font-weight:700;color:#166534;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;">&#9989; Voordelig als je...</div><div style="font-size:.83rem;line-height:1.85;color:#166534;"><div>&bull; Factureert aan <strong>particulieren</strong></div><div>&bull; Weinig zakelijke kosten hebt</div><div>&bull; Minder dan &euro;20.000 omzet maakt</div><div>&bull; Administratietijd wilt besparen</div></div></div>
+    <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:18px;"><div style="font-size:.78rem;font-weight:700;color:#991b1b;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;">&#10060; Minder voordelig als je...</div><div style="font-size:.83rem;line-height:1.85;color:#991b1b;"><div>&bull; Factureert aan <strong>bedrijven</strong></div><div>&bull; Hoge zakelijke kosten hebt</div><div>&bull; Grote investeringen plant</div><div>&bull; Boven &euro;20.000 verwacht te komen</div></div></div>
+  </div>
+</div>
+<div style="background:#fff;border-radius:8px;border:1px solid #ece8e0;padding:28px;margin-bottom:18px;">
+  <h2 style="font-family:var(--fl);font-size:1.3rem;font-weight:600;color:#111827;margin-bottom:18px;">&#128221; Hoe meld je je aan?</h2>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:30px;height:30px;background:#7c3aed;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.83rem;flex-shrink:0;">1</div><div><div style="font-size:.88rem;font-weight:600;color:#111827;margin-bottom:2px;">Controleer je omzet</div><div style="font-size:.83rem;color:#5a6474;line-height:1.6;">Zorg dat je omzet de afgelopen 12 maanden onder &euro;20.000 is gebleven.</div></div></div>
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:30px;height:30px;background:#7c3aed;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.83rem;flex-shrink:0;">2</div><div><div style="font-size:.88rem;font-weight:600;color:#111827;margin-bottom:2px;">Meld je aan via Mijn Belastingdienst</div><div style="font-size:.83rem;color:#5a6474;line-height:1.6;">Zoek op KOR-aanmelding. De KOR gaat in per begin van een kwartaal.</div></div></div>
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:30px;height:30px;background:#7c3aed;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.83rem;flex-shrink:0;">3</div><div><div style="font-size:.88rem;font-weight:600;color:#111827;margin-bottom:2px;">Pas je facturen aan</div><div style="font-size:.83rem;color:#5a6474;line-height:1.6;">Vermeld: <em>"BTW vrijgesteld op grond van de KOR (art. 25 Wet OB)"</em>.</div></div></div>
+  </div>
+</div>
+<div style="background:#fff;border-radius:8px;border:1px solid #ece8e0;padding:28px;margin-bottom:18px;">
+  <h2 style="font-family:var(--fl);font-size:1.3rem;font-weight:600;color:#111827;margin-bottom:16px;">&#10067; Veelgestelde vragen</h2>
+  <div class="kor-faq"><div class="kor-faq-q" onclick="toggleFaq(this)">Kan ik midden in het jaar beginnen met de KOR? <span>&#8964;</span></div><div class="kor-faq-a">Nee, de KOR gaat altijd in aan het begin van een kwartaal. Meld je ruim van tevoren aan.</div></div>
+  <div class="kor-faq"><div class="kor-faq-q" onclick="toggleFaq(this)">Wat telt mee voor de &euro;20.000 grens? <span>&#8964;</span></div><div class="kor-faq-a">Al je BTW-belaste omzet in Nederland. Het gaat om je totale omzet, niet je winst.</div></div>
+  <div class="kor-faq"><div class="kor-faq-q" onclick="toggleFaq(this)">Kan ik eerder stoppen met de KOR? <span>&#8964;</span></div><div class="kor-faq-a">Je bent minimaal 3 jaar gebonden tenzij je omzet boven &euro;20.000 uitkomt. Dan vervalt de KOR automatisch.</div></div>
+  <div class="kor-faq"><div class="kor-faq-q" onclick="toggleFaq(this)">Moet ik nog wel een administratie bijhouden? <span>&#8964;</span></div><div class="kor-faq-a">Ja, je moet nog steeds een boekhouding bijhouden. Je doet alleen geen BTW-aangifte meer.</div></div>
+</div>
+<div class="disc" style="margin-bottom:18px;"><strong>&#9888;&#65039; Let op:</strong> Dit is algemene uitleg. Jouw situatie kan anders zijn. Raadpleeg bij twijfel een belastingadviseur.</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+  <button class="btn-ghost" onclick="toonPagina('landing')">&#8592; Terug naar home</button>
+  <button class="btn-solid" onclick="toonPagina('tool')" style="background:#0d7c66;">Open de kwartaaltool &#8594;</button>
+  <button class="btn-solid" onclick="startCheck()" style="background:#0f1f2e;">Doe de DBA-check &#8594;</button>
+</div>
+</div>
+<div style="height:44px;"></div>
+
+<div style="background:#fff;padding:48px;border-top:2px solid #ece8e0;">
+  <div style="max-width:960px;margin:0 auto;text-align:center;margin-bottom:28px;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0d7c66;margin-bottom:8px;">Over Zeker ZZP</div>
+    <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#111827;">Wat is het <em style="font-style:italic;color:#0d7c66;">ZZP Informatiepunt?</em></h2>
+  </div>
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128203;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Betrouwbare informatie</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Wij bundelen alle relevante ZZP-informatie op een plek. Duidelijk en actueel.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#128296;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Gratis tools</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Onze tools helpen je zelf de juiste berekeningen te maken. Geen account nodig.</p></div>
+    <div style="padding:22px;background:#f6f3ee;border-radius:8px;border:1px solid #ece8e0;"><div style="width:42px;height:42px;background:#0f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:12px;">&#129309;</div><h3 style="font-size:.93rem;font-weight:700;color:#111827;margin-bottom:6px;">Doorverwijzing op maat</h3><p style="font-size:.83rem;line-height:1.75;color:#5a6474;">Kom je er niet uit? We verwijzen je door naar de juiste specialist.</p></div>
+  </div>
+</div>
+<div style="background:#f0a500;padding:36px 48px;">
+  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px;">&#127775; Gratis weggever</div>
+      <div style="font-family:var(--fl);font-size:1.25rem;font-weight:600;color:#fff;margin-bottom:5px;">Wil je meer weten over het zijn van een ZZP'er?</div>
+      <div style="font-size:.85rem;color:rgba(255,255,255,.9);line-height:1.6;">Meld je aan en ontvang de <strong>gratis ZZP Startersgids</strong> direct in je mailbox.</div>
+    </div>
+    <button onclick="toonNlModal()" style="background:#fff;color:#f0a500;font-family:var(--fd);font-size:.79rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;flex-shrink:0;">&#8595; Ontvang de gratis gids</button>
+  </div>
+</div>
+<div style="background:#0f1f2e;padding:48px;">
+  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div>
+      <h2 style="font-family:var(--fl);font-size:1.6rem;font-weight:600;color:#fff;line-height:1.15;margin-bottom:12px;">Volg ons voor<br><em style="font-style:italic;color:#12a085;">dagelijkse tips</em></h2>
+      <p style="font-size:.87rem;line-height:1.78;color:rgba(255,255,255,.55);margin-bottom:20px;">Op Instagram plaatsen we regelmatig posts over ZZP-onderwerpen: belasting, contracten en tarieven.</p>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);margin-bottom:10px;"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#128248;</div><span>Instagram: <strong style="color:#fff;">@zeker.zzp</strong></span></div>
+      <div style="display:flex;align-items:center;gap:11px;font-size:.85rem;color:rgba(255,255,255,.6);"><div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#12a085;">&#9993;</div><span>info@zeker-zzp.nl</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:24px;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d7c66,#12a085);border-radius:8px 8px 0 0;"></div>
+      <div style="font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#12a085;margin-bottom:14px;">Vind ons online</div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128248;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">Instagram</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">@zeker.zzp</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#128279;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">LinkedIn</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">Zeker ZZP</div></div><a href="#" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Volgen &#8594;</a></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;">&#9993;</div><div style="flex:1;"><div style="font-size:.82rem;font-weight:600;color:#fff;">E-mail</div><div style="font-size:.73rem;color:rgba(255,255,255,.4);">info@zeker-zzp.nl</div></div><a href="mailto:info@zeker-zzp.nl" style="font-size:.69rem;font-weight:600;color:#12a085;text-decoration:none;">Mailen &#8594;</a></div>
+    </div>
+  </div>
+</div>
+<div style="background:#0f1f2e;border-top:1px solid rgba(255,255,255,.07);padding:18px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px;">
+  <a href="#" class="logo logo-w" onclick="toonPagina('landing');return false;"><svg class="logo-mark" viewBox="0 0 36 36"><use href="#logo-icon"/></svg><div><div class="logo-name">Zeker ZZP</div><div class="logo-sub">Informatiepunt</div></div></a>
+  <div style="font-size:.72rem;color:rgba(255,255,255,.28);">&copy; 2025 Zeker ZZP &mdash; Informatief, geen juridisch advies</div>
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div id="nl-modal" style="display:none;position:fixed;inset:0;background:rgba(15,31,46,.88);z-index:999;align-items:center;justify-content:center;">
+  <div style="background:#0f1f2e;border-radius:12px;padding:36px;max-width:480px;width:90%;position:relative;border:1px solid rgba(255,255,255,.1);">
+    <button onclick="sluitNlModal()" style="position:absolute;top:13px;right:13px;background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.6);font-size:.95rem;width:28px;height:28px;border-radius:50%;cursor:pointer;">&#10005;</button>
+    <div style="font-size:.69rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#f0a500;margin-bottom:9px;">Gratis gids</div>
+    <div style="font-family:var(--fl);font-size:1.3rem;font-weight:600;color:#fff;line-height:1.2;margin-bottom:8px;">ZZP Startersgids 2025</div>
+    <p style="font-size:.84rem;color:rgba(255,255,255,.58);line-height:1.7;margin-bottom:18px;">Belasting, BTW en contracten als ZZP'er &mdash; alles op een rij.</p>
+    <div id="nl-modal-form">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;">
+        <input id="nl-naam" type="text" placeholder="Jouw voornaam" style="padding:10px 12px;border:1.5px solid rgba(255,255,255,.14);border-radius:6px;background:rgba(255,255,255,.08);color:#fff;font-family:var(--fd);font-size:.86rem;outline:none;"/>
+        <input id="nl-email" type="email" placeholder="jouw@email.nl" style="padding:10px 12px;border:1.5px solid rgba(255,255,255,.14);border-radius:6px;background:rgba(255,255,255,.08);color:#fff;font-family:var(--fd);font-size:.86rem;outline:none;"/>
+      </div>
+      <button onclick="aanmeldenNL()" style="width:100%;padding:12px;background:#f0a500;color:#fff;font-family:var(--fd);font-size:.83rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:6px;cursor:pointer;margin-bottom:8px;">Stuur mij de gratis gids &#8594;</button>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.28);text-align:center;">&#128274; Geen spam. Uitschrijven kan altijd.</div>
+    </div>
+    <div id="nl-modal-success" style="display:none;text-align:center;padding:10px 0;">
+      <div style="font-size:2.2rem;margin-bottom:10px;">&#127881;</div>
+      <div style="font-family:var(--fl);font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:6px;">Aanmelding gelukt!</div>
+      <div style="font-size:.84rem;color:rgba(255,255,255,.62);line-height:1.7;margin-bottom:16px;" id="nl-success-msg">De ZZP Startersgids wordt nu gedownload.</div>
+      <button onclick="downloadGids()" style="background:#f0a500;color:#fff;font-family:var(--fd);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;">&#8595; Gids opnieuw downloaden</button>
+    </div>
+  </div>
+</div>
+<script>
+function downloadGids(){try{var bin=atob('JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNSAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0NvbnRlbnRzIDE1IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE0IDAgUiAvUmVzb3VyY2VzIDw8Ci9FeHRHU3RhdGUgPDwKL2dSTHMwIDw8Ci9jYSAuMTgKPj4gL2dSTHMxIDw8Ci9jYSAxCj4+Cj4+IC9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago1IDAgb2JqCjw8Ci9CYXNlRm9udCAvU3ltYm9sIC9OYW1lIC9GMyAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjYgMCBvYmoKPDwKL0NvbnRlbnRzIDE2IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE0IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9Db250ZW50cyAxNyAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCAxNCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKOCAwIG9iago8PAovQ29udGVudHMgMTggMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTQgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL0NvbnRlbnRzIDE5IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE0IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxMCAwIG9iago8PAovQ29udGVudHMgMjAgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTQgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjExIDAgb2JqCjw8Ci9Db250ZW50cyAyMSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCAxNCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKMTIgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyAxNCAwIFIgL1R5cGUgL0NhdGFsb2cKPj4KZW5kb2JqCjEzIDAgb2JqCjw8Ci9BdXRob3IgKFpla2VyIFpaUCBJbmZvcm1hdGllcHVudCkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDUyMTE1NDMxMyswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDUyMTE1NDMxMyswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoWlpQIFN0YXJ0ZXJzZ2lkcyAyMDI1KSAvVHJhcHBlZCAvRmFsc2UKPj4KZW5kb2JqCjE0IDAgb2JqCjw8Ci9Db3VudCA3IC9LaWRzIFsgNCAwIFIgNiAwIFIgNyAwIFIgOCAwIFIgOSAwIFIgMTAgMCBSIDExIDAgUiBdIC9UeXBlIC9QYWdlcwo+PgplbmRvYmoKMTUgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTk1MQo+PgpzdHJlYW0KR2IhI1xnSlN0TiY6TDFTa2JtNlEuT19sRG9YImNAUC1ES0xcIz8lbDE5bE5mTjV0Oy9LTi4oIVwqIypbKGZTP2lRQGN1TlhtJmxZNSgxcDkiLF09RXJCJFNRbSNCcmJDQmZhOGtTMEMwJms7PXVKIUJsIyY/PTBDOS1CMExWKEtFWTwqMFhsMWIlLyFQdVdKVlYnMitfVW9AKF5GRSUpaEgnJSNNNyZDa2VgbjBcY2s8cDksYmokRGtmQGJXP2JOXCFfTVNjX21NVCFsK0JbJWVWLUFZMm0kTS5aY2UuQkhUIUEtOS45UFdMYitCJTU9LHVVSThETHVHaTgxQkJyMV51QDpFPjwoIzRGKWpHMmJudEwmdWdPIWknJEhVOXNqI0pLbi11cjpBaGhYMGRKUzg+PjkrLSs9OnI6MyNeUG8jZj9KXSY4SVpWISd0XydAUiptb1QpZ3EmIS9EKWtePSVsTmIoXHRjTjVgMW9fZTlQKzpBM1Q0KzJaLkFrPEU/ciVccjNIa0ZOJnEnQDdAVGA3JGpbWyYodVVTVyM3LVdAJEpdOykkSHU7OyJFIXEiWF43aUo2NzpfPmBWSTUpdWUkaVteX1JWZmxQdThkU0VlWXBSdGk2T1wjPURbcChvIUlYIl8hI0NqI2VYL20wJScjOWwnXFNPM0NMU144TTNRTTVUV1EpTTYrM25qVyxKNTJyUS8iT19kcykhOzRXdVsvJCVvTjtGUVZ0Xy9UL3JpVT9xUi48cztTZ1BCIiJAciNmLFtbK0RhRTBSRz5tcEBXRydTN0ldQnROW29RWTA7XS8jRnNyNGNbPm4wTz5IOVI+bCEwUyltWWZXbyUqbU43PF9YQDNxVUxeIjI6X1QiPj1GUWYtNFozQlA3X0BPSV9XSSxgOXFeaCZwPmU/YG47KDhKZzpTS2cwOEluX0NdTWc6RjVlT08jRzBoLSw1TVNaODdXS0cjXVVJYyxmV2I+UDEhU25zSStPMjBgbDtpay1fOE1iWHBddDdLUjRMc2Q1UmVWb0YzXz9jNlszTWRMTCM0MVNnWz8zYGFyXVBCUi9kJ2BIWWI2Qjw2alssJFVcIXBbL10kNztBP18tMGw3bWNtLjRBJChKVCo7SC1vTjhMZykvUTVXLlZHPWs1Kjw0Jy5vKUszJyw3VzNFXTMzYy91QWFbTipcPFk1SHI9KVcrZCtmNjpaKjcyTTtLPlQ9L0VSXFFxOmNHaUlZNyFvMCY9SmVwcj5DMDI8LWFbKylWQEYzImJhWChsPTxtalVhb1VNdSY7N0tCTS0iTVlJdV00W20icjpTVChcYCc7I1tMayFaUjhtMCpdYGIyZCdQPDJsL3MxQnJDP1h0K2VDJSovXkQ/WyJqSW9cPVojOFBXIVEtYSE6bWAlSToxWj1qMS1RcTwqSkFLdFEiJVVDOWlhMipyUEFgQjFWUitiKl1tdD0hJVknMVZfRDM7YT5OMjM6UGpoZjg6YChIIUJLMj5IMTRbODlbcUpTRkR0KENZOUctYEZCb280LkYtKlJoSSlKK11iRDo/ZFs9aFskblAzS2pcbEc/T187XWInRCVaNFxnWCZCQXBYIVMoOC5FM04iSFc5XjAyPz5Ibk40JFA7RVM8Y1EuT1k5MklnK2AoOjNIX0oncjRrS0hYI19fSDIpcjhBNGguaXB0J1IvK0hTVidsZUBzXV1QUmVlSz4mITArLHRXTllBUyZQY2wjViJISXFbPHJEMjc+ZTBJdGs5VlNKQD1nUWg6KUUiU1goVWttIlxiRUVpO0BwXlJsJDwvQTxYJjMlTHJCWlk/XD5VaS5JNjVjYUNtZyRmNU5ERj5KbDozITgwSU5SYVopPWItQWcoPk8zWE1LNUs9JVM5QjczR2tHSkQvSmY6M0VwbSc8L1xxNkczLCQ1W08qaDsiW1ptVkBpcD88OyZIaVlZIjlDaUI3cF9MTVJOUCkwXlM0L0YuPW0kWjU0VVltSk0xUUlALU8paklXZSUjSV5qW2osRWw5P3E/PCcvOGNGPURFc24+ZXRLbjFCJ3NTbENkWVJyaXFQN2VrJzsmL1pwYGEwPDE4LlxMRGtqMkxaIm5EIW1jOEttanJ0SF9nYmZqKixMSVknXiZMbm4nbXJRLWNoVE4/KEhvQU0hPTxrbEEmIitMN0doS0smY05baSwtZyVWY0I5JlBNK0cjaChha19wdTEmY2NBdSsqZVE2dWs1cXFrVz48J1xPPjUjRTVHTkUnPkAyZi4tbDdDLTtoIzRkS2A7MEVYN2Y5TzAjVlg7JE1hYz1iOyJfbXJVYyckYEhedGNbYj1NRWViKTxrLCFiKloiPCk2TTgwdTlFXl5DZ09IZDpHaEVrMXMpL0lQQzwqQkFVWzMlSitDbilVbVNvL21QWlA5JkU5UjJjZ3NnODg4ZlUjZ0YvdScqbFJcIytYaXU9YHFzLldoXSEpKic+byRCMm8qIUc1MWkzN0NHYyhBSHIxb0ZfWHNhP2QyPV4lYiRLQktObDhYNSNxOlNFO14hUkZSUydLaGc7P2pqcixLZThWPmxDNlNqXEloIlcoYzxWOWtKNFNFW1giM0glIT1aIl9+PmVuZHN0cmVhbQplbmRvYmoKMTYgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTkyNAo+PgpzdHJlYW0KR2IhU2w5NWlRUyZBSiRDYlUnQSg3JThVZl0qPFNbZEFDVTJVM1IickAvKiZtLnRyOkckSFk4XUlza3NyJiE4Jk05Km5DTk9pNj4rbWBeJ2IxXDIlbjsjRmMkaG4oSlVlSTVjdEIjJENNKDtNMlgwYClONFNSJFdTK0IyNDVKT2dnTjp1Vkc5L2hgQXNdLUpwQT5fJi0hQlQ1b2hLdUp0Lm8hIjMoR0ZCdEEsKFwxMjktQWVaYlFMMHQmVFhgJ0VPXlJiInQ8ImkoQkZhYSQiWEgkY0YsRjteNCRHM25nTWIiUlAhUUYjK1RdO0U1Ujs+aTUpUjUzZGw4KlBAUlYqSFErUXMsUWRyYkFoMDdeRTtKSWMxRUEnQD9qKUhEI1hbS2NAM1hgKmlDaCRFJ28jZDI5K0I7VF9SVUY5USdKaS5UMzZFdDByLGpYPzZgUSRRIz1fMDVwPy8/NCYtcjxZLmY1LEpicGo3bTdwSidqRlE9IzRJYTZBPFc1WnJuJUVwPnMuZ2ZoPGBEKzk6PTcuaWZCQXRuXFslXFFiTiErPmQzXHNLcl5XSGRFLS5RKipHSkpdS2RjKyRAST1gcCd1OT1qIVglJlRBWWM+YydIVT9lYk4vRC5eIlsvMDlsO0lzNCFvLC5YLlpGcC11TDo0SmU/IlxMOHBMcVBddWJAOGtLYTZSLFVeb2pfYWUnTCdNVTUqXnEjTT1iby5vXzxyP2pFOVUjY0EzIXNtKl5VTG9ncURFWSspRl4xP2JjLzFuSGRsL3E0LDhnWydsSEtbQzM8clxhcCo+WidDQjZWNnU0JGsmQ21eLTVsMEBKZ2E2Ilt0amk/SyI2UmA4c1x1a21rczxAMTpQWVknLjxKZD8vNDAvanVHRiY1LG5IdV9pYSZUKDNoWyg+NTY2JF4uJSQkPyxHc3JBJV1DXk0sM3FVLEUnWSYwQ20yPXJvK1olLmRPQlI6IXEkK1EwVHVALCJhYV5fR1omUzVfXXVSUVJRajYmYWlIJiQwP0lrU1FtP3EiSFNpUzYwYDo1al0xci4oZUcsUy1IZTEnUEpcX2laIlBlN151SjwrLEdrMy5qYyEqM048cjg+WlJDaCNVPVMuLG1IRSxPaTE2LW9DKygqODQtczFkSzhVcEkmKU5UKmg5ZSc7aTIkYVAlNF07cE5oa20yLiNBYCYzQjxDP0JqTjpDa01tTlpdPkQ1PUdUYGpjanI9IjdVLWdMOUtEMyxkaSRpJDVTRCwqaiIucUxAVGsiZHFwVSdVXipvbjRQaC4pNmhRIWkwJDxxMy5NJT9uJyVKNT0sY1FhRlFNU1FcN0JWW2JVRkwkVjJeXVtUPEY6ZjFPLEktVHMvNzJKJS1bRCJ0XVspWyYiPVdTbVxHXEpvJUgidHQjIjhxaTRlXlYna3FfVlZmQEdibHJsQClXaEwuVTlNKnVgRG1VVjFmYC9AQltERjRZc005RD8vOUA/N14zWiJRPjFZIi1IIkZiMGVOXWEhaF9SZ0BpXjRNY1lYKHQ9MitjL0xlTmpaMCchKV0iMWI0TEQ1YSgscVAqJFZYZWI5OToyVlhYQy0mbypwZC83P1ZfRGJtIjIhcGInIWwsVDQvXW9Tc2YiTz5vQTlVbk8mWUdrOmg5LiZIaF9UV0RhVzVucl45R29CW2IxKXM6Kiw6I2JwcEUyPSsiX2khNkdGLU5qUmIySGZlYTd0L0tDOGlSaEUnKTsrVlFMNEhOczRBRVpoVywjJmAmQFxwXFk3RnA4UEYvMG9bLDNBLXJzbj5BcjNKQCxfSUAlbFVjViVaPCUzaUcnKkM1dWxqbSctczglV25zLF5WVSpmSE48I2JZb1hdTUdvMCtISzxgX11yP1hIIkRFI1lpXCZjPklZXVNnaXAoLVwuJi84KkljZFUwNT8nLSlrWT5JKVc7YUtfPyxyWChuI1BudFkqZzZjcUdKIUpZLmchSlkwTTsqTF0zU1lLP3Jdc3MvNDBhIUxtYGtmYihWZl1cYTY8XWNYQGxvVk4mO0VVKkwiUTYnUktzNCNgOUYwR2hcRDZWcz90PDNdQ20lJiV1c2JSZU8iTC4oZCdfLVNiYGVkMzRtXy1TYV1XPEwiYkAhdXRGMktAQys+LmJRZTNEdVtSO21OQ1FJa3RMPG9cKGFFTCRhcydwaS01ISQtPl1zImI0LHJHMGlBYShfUXNATjJLSnMtYnJVbFBnYkNAb25qQVNCZyUnVDdDalI2Sj9eb0YjbjItMEk1Sj0nITVyIU4yKjAhXC5fVTYmPXJgcWc0ZysvNXFrPzE7MklgZXBINFZsRiVmKk5bcigrSSJvJ25QL0EqTjxrL1d1YE0+SmRZYmBaPz8hMV9POzRzMGg3UU08WDlWN0ZANT9sZkJaZ04ha1s6I2tQMWcpcD1JYV9iVWpjVzcxOnNpQ04zVmVKWjhyN1ZqWDtJQ1ksU0Y6M28mRV9oXks2aGcxLD9EP0Y4YzcsKU5UJC5BYF5rLVBnPlgrNGVhV0ZiIU85UTY0LWleJD1AbCYiMmpVUydyTj8uZTk/cXRcMjU/NDM3LGx+PmVuZHN0cmVhbQplbmRvYmoKMTcgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMjAxNgo+PgpzdHJlYW0KR2IhI1w9YGA9VSY6WEFXZlUjP3VOLmhmWiNzTXFbYWpFIydSbCJrOGo3KkwmNjQsI3I8LWQrOnM4Ij9tUj5PQzhFXUhdQmI5al8sLzleUDhwN1VAJUxSKkYmQ09oPEw0RjllUjE3Njo6JDZpbUslVU1sVHJdKTNgRkY0NlsuJG8ybHMkT0BXTWxaKW86bGRDQjhsMjVyRWhzISY6WEE9RjQ8ajAtSV8/RzhWLEJ0ZUVJRVc9L2VGKGo5TTJvOjo4JTk3LFVFclwvZCFfXjZSPj9wWEM2M25vYDc4PDNtQ0JmL10mVjRqdEkqXGMhMWU7Y0UnXSNeOlctXTMsNzt1ZCMwVS9ebjhEUSQnVjhmcl5UcSI3dUc+OV85TWFnS00najJNai4ocTAqdFZncEs9OHI6YHQtXChmTUVvVT0lT0BmO3U+LUQ8UjNCQT8/IlNUdSlzYjNRUWxHRDhkTjdYZkJdUjFMVDtuMFArPUlgKyxyXDg9ZnI8QFo8UzNYblNaOD8yXUZQPlU6RCFbckk/cFdfLy0wV0svWVk/ZjM4JjtGJTtfTT9fdERUcD4zPSllbWA5WE47PE4vaD0nN1FOPC9dQWEiXXJlY29ddDYhYko7MXMrc2pgNSZLSD0jbi5rYk9fOmxtN05YXT0iOVFcKERJLkgvLTY3ITkmVmpKN2xHRVovWTdRJDYoLGtucmVpMipEJCs0OjZYZEcpWiFOblpLPj45Vk0wLCY9bktKOC85YiZNKStPdGUjNlAvNio+L0JKPlRyYEE+SDs8Q3AuSF9wM1h1JiQwSTFGQCdtZSJYaWlHcktKIlw1VT1iQWpmUU9aZjdMLE5cYi5YUnVZWGw/U3RpZV1QaGsjYTVOczU0K2s+QUxXTltlTTgsUyJLOmg6L1NhX3IsQ2g4OUJdMyJfaSFuKW1uUzAtKV0+QVhZKnE4TGVuQEFMM0ImTzMoQkA+QUprYjRvWC5wLUVzJVNoK1RLZU5CbDUvZykkPiNoPnA+XCxiPkJrWlotOClyMmtvQFdeaFs5aVUxOjhLMDdDXDk+QU5YWidoN2BVVDxBdHVbQFouQ0s6Yy9jK1hyKFptcSlsKC5mQEM8cWlAQFcvVlhqYzI2QGgnalhdZVNhKjp1KXVQajdwNVhQRyI8JWkuLXM7KFBlLkErKD0wRktSR2FtS19PRjsicy1OTUBZMmZsa0hIajEzIikoWE05ZlYhQC0zIj5CMTglJDc9KWJwKSFtJTJMTkEtPiM4OzhgNy0iNDdYal5JIjBWUF1MaCc/XEVkaXUuWUllRUY5WDFDWSVqTmhQTT5aXzVHNlk0YVhZMUNsR01YVCpqTkJvdWZLS2o7NlRkM3FqbC9FXEczJidUNlxCTjYsTmxjMCQkVmJfbUwkW0w7KzhCLE5IdDRXOF9daFFsYlJmWCVQaSo4VEg/NGZyRFZNLCheKDZFTihyPCsybGdHQ1RYay09J1osPGtbK2k1MGFRbDopMjMsRFg2cHRxZSdXJCxRdW1nc0hmJjI5SnEjV1NnaUQ2QGZkZExQXVM4dTRtWUg5NWcoXXQoOkJHVUNyN0g/M0FDOkNZNSVGJ1pgNz1SMTJEYzdxRmxcX147YlxVRWE1R2FsVzMlclMndFM7WT5qaVBOUWgwbilubE03PixXJWNlPXU8Tk4yUT8rWVxdMzBvJzwhbFBqNFpuNismI3M1YGdBdHIkYD1MN0M9LU1FRVQ/JWdEKThKKXF1WmBWSEZyOl90Z0QoXk89ISpXUlBEIiw5VjwwZj8jV1BOJVA2L1tgalZGQSMjImlWXDlIJ2whPjZfNVEjPVdoaE9oVkZGMisxTWZIWWNiR0NnXWZWVT1XPCpmKWBAISZVI3NacURQSD9BSm5BSmRaRlt0WCZKKmNiTWJBW1crTVlgVCosRUV1UXN1anUhUyg5YGc2MidBWEAwZSZZL0dORFs0TlZtLjw5YjVqOSxJJmFpaTcvNUNpN1dCYyk7OiE6Xy05VEdQa0wqW0tWVjdJUUJDS1gkNklIZCUoY0g1ME0oZSVtNmxWQzJKczdOXC4kYFpCTEQoYGMiUUNlZDlVX2hkSnJlVmI/IzpDWTRmTj5oPGhLLCs1O2hFJGJCK1pGLD9ZbDleSG8wIV1YSE5taDM8YjZOSCxkOWtHMFpPN1QzUDxzaTxBcUBNKWo6b0UxXmRTJD9LckEuMkY0aEhPSV1ObHF1bCg3YVk4WEhdPyJcKEtNLlEuQ3FRQmtNM2QscTZiJW48ImZBOl1xUWJrVERIaDJmZENyT09BSWZvUEVxWEdfYnUnUGNGWGQvcCVvJXBPWE5TOClQPjpBOWQ9WTNIZjdpYyFuWT9lbHA7PUBeNklgVSwyTFhhclFyKF47PVNpTE9eLVRXQGlZPGtbKzxQdWhLcSsxRGxTUychQEI4YSY2RmQyRVBEN0pZTVZdNEM2IlhcZlFVVXFuZWdgWUg6b284ODcyLWZpJXBgUWNyTzxTImM6aV4mZkJQO146dC4uJGppUSFsQzM5dCMtSmYoW0NgSmhxJkxUUXIhVUAyQWwrU3I5XkFHYVUpQDpTMz5rYiIpbS0vdUtvX1wlXT9LdGZXJVwiNCdrM2MmYmUuRCxgbUxYP2UmRDElLEwsSWNyLUNpNXVGdDtzUWZoLTIsPD1DWiYtMHBwK0JFJXVkLGQuNH4+ZW5kc3RyZWFtCmVuZG9iagoxOCAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCA4NTUKPj4Kc3RyZWFtCkdiIVRUOWxIZFwmO0taTCdtISYhZVs6Q1FjcUMzOFwhPU9pW05CMDU8T2spRzZRTHRrSllaMW1yPTAmJlojK1s1Q1A8RDpOK18hbWBaP3EvR1ZTcVc9VEVpLWlWXSxGaXQwT2UjcExNK0tDQT9ncE9IKTQ3Tmk8VCMkaCJMTEdCYiJHLkplaUhKRi1MMEc5K1I8R0lubCVRXDZjcGwyYl1GJSQtcCUoUT9ONyRMK0AmRXVkU3FpKlwtXmNGYkYsRiFOVSM+WW9SSSNKbXFALzA7NSVvOVNfQ0wndHRSOSUqUHBBbWBHTzhzJ2VsTEpjKS9yN2RLWiRWYFFYJEUxPzRHV149TT5yK0pDbmYhJ01AOj1mMGJIYDNQaj0+aCQ7U25CMiRgOCg7SVBkRW42KztHOl5QPydXKipFazF0RDs/MEQqPCQibEJkV3EpZjh1TF9rJikqMkVCVFVBVlwtZFlWP0NbPWp0OjwqWCxnaiJvYSJYQXU4VjFKXW0oR3VcVmZWV3Job1BxIygyJ3MtdT0qOiQ5dVtCVSRoP2hqSlBoa28rNiokTGpAO0VMXDc7KCVBX2lYUkAxKTpSUSM4YTU6bmxmZmcoa2pyL3MzXi49OFwiSnRmb0B1QXA0aSZARjsiI3A9XENMKUthIy5QKzBpTzleXExfMF9sWGlTVjxKQCQzUkAxIy1rbDFfazZOO3JEKS9JdC4tbypUKFhcQWtsVGYhKmVWKEMtLC9sWWowbVcmKzFcLEtARU8uVkpwa10rLWlCZyJMO0pzP2IjY1hrSi1nLCVzKUAsVVI3NjFeTDRmSj5zTHBTTl9PXiklLlgsNFokJlRhLDYqZGU3LDddWDkzZyVGWHFDJTBtNjFHP21iXDpqPEdaSkUjJGlJVyReRS9NTHFjJDpqQ2xXVDsjJS1HUm5jUkolMSUnIzk9Xi1OZ1pmSjJfPXFMLSZHM0pwJSdpWmQjcSQscTJIbWRbK3AsYFRpcTZROFMiKid1YiZwQT4uMFEoMFckPGVUS1NoOyo4UVlhZjw5VjkwVUdWKDRZb1ZfJ1IqM0YtTGdKTlAiZkJuUmQ7RWwpaC81QFRzZSFiTV0/XTUnUCQyaEQhZD5tOSUjRm9BRDU8cXVNYWdlaEl+PmVuZHN0cmVhbQplbmRvYmoKMTkgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTkyNAo+PgpzdHJlYW0KR2IhU2w5bG8jWiZBQHNCb1Q+cyNNSW5eQWcuTm8lRGM0MzQ8MEBeJlkiSkxGXmBXaTdgOUlINXEiPU1yLF9SazVfRl9sVClxdEdBUmRQWSdcdTBsbFxUZmsrSiVSJjwpOkdScE4jOEpPUGFIQ20lSCNZJ19sSjlqKjdvRHBMYEAhMTRTM1dpLC5ZamJhK19EdE8qX1FJayFUZlckOldGMT03J0lqai4iVFlGdCJnLlVQSzp1SyVPWFM1WWdOc2giVCc2R18hMStxOTNpaChOQXF1aiJfXHBMSiZQNXJWREFiPDNpSCU7J3BUZSZwTGxeRk8sVCRCV0RvS1xERCspOjZ0PjlJP0tINCxsJyosMzJiXy5VXTMtPzNSU09kYl5oSyc1XFBPXjlPc1toXEVVNj1vallaLD1APUVEY2YlIldrWls+Y0ZtWVdXKERdQmlAYFVWNkc9bVNiYjNGTmg/QUZRUSdHc25ZXiNkMUwnUjQuaG49PlhHNTApOW0jbj1QPDVNJC83WGBvM243LWsmPW1nPFJFLG9Ub3MyOzR1Pklgbyd0T1EvckVLXHFXXDQmc1xxYyduZWROT0kuRFsvL19rPFIpMWZER2BQRyEiKmZMQi4ucTJXOEFLWD1gPnJMSzAqNHUvcGVBSjR1MlkxWlFKZnNIVG1Kbyw2cSdNZnFAJThaLS80I0Y0WSwjP2tiUSxCImtcM1tUMEk7US4yY19GSSg6NWI0Qik6O1kwbF4waUItMVRpLCQtPFJVZ0dHMkMhLE9daz5FPGc2Qm9UJT1xOFcrKy1dT1xBRTAzaDtTJWJVLEFKN0w4YTNjNCxfS1ZPIjZUJUozVmFXMycqZzZYT3JEOThzZ1xTNFBgQyRwJD1MXCNgdV4iQ2JxMjFRPW06QCctO2pZRkd0Yyc+QW09NSteUXEiTVU5biNIM000V19MV2wqTU9TdVVVK3M2T21jSkZcJCQrN1lwOFw7XCtLbmpOPDtOcj5eYTlUXGgiJU1BJmVzXzJhUztPYShCPSVkZG9mWiRFIy06Tlx1ZlduJ2tBYkJEbV8pZiJCcFJaMUpPLWcrZEsyLyIyJHBMLiwpLS5ULE06J3BGQUZZTlpRT1VvOz4iWEQ7UEE1QDcsXSVxXDtaRSkrYGdXIWlGJGooIlBAPVtUO2k+bCMrYEVzLjM3QlondDZUZTg/JiheWjhOP2dsbm5EOyNHMU0lXFMyLFZHcWNqZ2AwTCZiai1pTi1LR1leZmJiM2loKkdyIU4maUIoVElSNGc+X1VUNFNZIV9uOGdiTSc0QTVXTV5IIVc/SU9abDYkTnVVNyxQWDVdWUZdKTxvSHFiWmNybjUzW102PUMnSlVKTldSRzxTLSQ0LFZaOG5DUktERllrUFRcQnI2biUjVDhXP15YPjk9QFxbI1hKQGZudCI1VFY7OyxITjVfIUNCcWVRJ0JBZD5BVS1qIjUmXTlvUyElUWdIXi5RM0JpQT1aVEYqT2lfSkZQM2VsKC05SU9GNFpkOXUubElFQmFgNWdcJl4rPzttZydRYE00Z1dGZlZVKT03T2FXMlBpMT5YcjIlUi5nZURlO0ZEbzcySyVEVD0pRDY2T0lLJWVdVG5aLHMvOCN1Xy9vTVc6K2JgMUMyWyNuTGduLkAnJEQqXmAwNF01UjlUI1tIKkhOLGgwJmUubCU6MVhuN2VIdG0pWC8mPikkIiptZHBnIydfZElKPEJnQmkwcmI9YmY2OyI6MWpdViY3PChzOEVOVWRKOlBtTSU/S2RBWVdNbCYvPkZxS0g0RU4/aF1nPEtZVlhcNjlWbj9OLE9jPSVVa2xRZm9UWkg+W0FgUylOMCwmOi8/YyokQlZSWlo5J2VMIT1EPjFTO2cnb1Mock1BUkNaa2tSWFA5PygjPF8sRGBtLUAnM3IhOC84Wz1RMUVuTi0ldFVyJV8rMS4yaU89MV49XmI1UShDZG0yVCZhYVFpXzY0Qzo2US9SaUpVLSVDTEonZGdgUipPZDwqYydNZ0IsKDBmKkhfXnRLPDMzPmllYGtcS0ptNXRucEI6XmJpRCRqaVksUyk1ZGRhaEZJaC1xZUghKFJYVVBHWVtnTFdAOCxpOzZgPiVsbmdjSVdxTDJHQ3VIJCpkTjFhNU5CLTFrViw5JEJrPGQsIj1bVE5mO0lgOFdGZW51JyVJX2FPJlMtMmwsPzM5X0s6XjJfWmNTXm02RjBcN24nTzc9Zj8xWVg+LGthYURPQFhPJC03Rz5vLHFoTFdvOVZpI2JDKUdJIzg3ZkVtcjg1Vk5yWGtaOyFQKl9fQmFKJExGQzQhKj08ckxsTCIkZ10nVCNiSCFWb15PVilAU2Avc0lrNSIkXF5JIVk/JnJXNV1KL2pLOkgtVjohWCMxY2RhJkVxaF5OLWMvKDsiM2BTTD5oV040X286OUYsMEBcdVtGcWUoUEsrRUQkVy1QJ0tKUU9XOTMoZClXKjRSaE1RaiRpMSJURF5fYzBiWjYmP2hqIzlKTiw3VUBEYUhLQDxALkJtXzQkZWdZTCdHLGBcNCoicjRgRyp1NHBPazV+PmVuZHN0cmVhbQplbmRvYmoKMjAgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTg0Nwo+PgpzdHJlYW0KR2IhbCE+QkFMZidSb2VbMy46IlRBQVVnSl0oYCUyMmZbUV1TTiRwbUIvNytOa1RGRFgranBdcUlYVE5wUClSNCY6OFNQWikvS2tiZVhqcy5ZLkpZV2tmKGdEMV10NilfPUw7MD5layJXZ2dMXE9yZF4/MVpdQWJDRWloInFqb2g6Rj8yQjQwNTBMRXI0LGonRllUW3NGJE5jYnMsMFpYTTIyaDpTZVo0REs7VHMzNzVXSFFsZCxMYChiZFcjWlxwP0FfSjJbbklTNjxgJiJQPTNqXDRbTispJThdVlw7J2BNUTN0ZWI6OC8pSy0hWXUqbjlmYHEwIUg9NTJHOUA2bUZcaCpQP2BfNiJAYj0oSEUtNUUtIi46XnBibGQnOUxxZS5iLjsvSCRndUZjaisxY3NVNlhAO15eNGopNnQhcFpCci81XVJUaDUiJVA9R0NkOm9nMmxLREgsJVNgXEw/LDgsXlsmRDsoIlVLYTQja1NIVm83Yz83XGlrcFlpM2AlYG11LzRNRzMqZDNqb3FwTEJKcG51T1UkVzg2JS82bGJiSEZRUipLXV84PFpZR0dJND01XVxUQEdxUTJyOCtGSm1qa0loTjdyLDBAYGoxPC4mZ1RiRTJbMlBrTUlWaTZiKTokXDxXaV11Y1VoX2BOVDxMSDlcNzxINWo+aEgraGRQUnI1XWxhMyc9PVMoRis4T2xLWCtrcTNaSyEpJVR0SldqWjkoXSVSamxlRSNjYHNYKVFaXXBOcDRAa0BKXD9fQWpvRSU3Q0onMSpjVHExNURwKT1PJTNyOU9VJm4+JFssW2dgdS0jcVMwUjJdQzAnc1lsTkBwUmBVKzljdTlsWmwhIk1gKW9wZVFcKmFaL1wrPWNUKiVvLHE1ciZOTU0qPiZjJGlJZkZcS1BsTWpSbSJYZCk6bnFQbG4pUFlkMXNWQFdhRiVCOi47PTdSdFVLPFFiKFBaalRRPVYzM3MkJyRNa0shXV1gLHFVPmJcXmJpVCkrQT89Wy1uL2BnIjpQdTtiVj1WRmFMRk5TNG06LUcuY2tjVE1BO0c1cTRicVsiVV9TSS5NXWZFUSpPKDxOX11fUXJvVSNrbEI3PEhKaHJlUDtQay9oYFdLM1QuPSc6MiFwZ1dMT2tcYzhGPUYsZi91OzFFcVI5QFkpJi5hK0pXImVOOCdBMm85Ojk/KCgoImtSX1AtZ3FPTnUjVTtDPkUoMGlHRUcvQ1twU1YmM21ZOGB1dUBpO0NqV2ohVUslaXUxXTshJzonUTtxRyFjLG1FR1M2SloldUVUZU45W0dIZS9VN3RpNlAocSc6VzZncFpWOD8vZUwvKjVeZiUkNzZcKShXKzZcO0o2aFBvI2RcWmhIND1iKFd0NWBvbltfKmVCTCFkMionaFpXV2NiPVwrTENbcywtV1ZGWnNBND9ZbTpBJiFpWzVxVEVEUihKXkddQElXOSx1b1I2NjVzZURNZklnaDFZZj4ycyJWXmtdSGpkNFZaWGxHMCdGI05tPypRKWlhKS9bTjJvXUo1IW5BVW9MYjZdIUtLLjFGZCU6ckoxSj05aUQ4R2MkcT9WJzFealBKOWQvblxLUis4Y0txUktibW8pW2dTU2M7bFU4XjRbMFBXYzBTKlZgQ1JvRW8zIW1OSkRgcGhgSkYvIyheIjVeMlhHWGs/ZmEpL1ItOTQ4PUxkXVRvVl1wcjw+RWlqVldCPTBfZid0XDo8Ql8+LnFPPidMNDEpKzNjIj91OitZWi9aQSJlRFs8N08kMVFlM1c6REM5czpKITNwZilcLkUhVSxHaTY5aVttVk8sVDdUQjNQJnUqTTBcUidkPj06W0tqM1RIZHAyZFguLGMjWmQ8Vi5pMVwzRzZXU0YqT09hPHA2V1VkLEhPWyglPFspLiYoMHUoL21vaTFaJVlyZUtEWmYtW1VtZS85YVphZCU4NDgmYmRiblBIMVY2JW9LNCVIWydEZm1iImR0NHFdO3NaT2FhUEZOOE1TWko5aksoWFlyKCdwSFVcZk5SPWdIISQhJUlAKFxKXUg3K00tQj1RakMxQ0wmcF0lLE9Qbi9ROVU/YC09X2cxW0psUSFMYShpI3ArRSdNWV5gU0FNYHV1PHRWPVtkKVAnJ2BeM2Q9XCdXTzM/KS1jK3BNST0tW2ttJmBSQTNnJzRqSTxYSzswRyIoTF04XWdIMjJxJlBKTUNrbjxQMjkmYTM8W21oQkREWEdlNiguTkpscGltTUxSXTFvb3BPMHJOcmxOLTMhWlM3ZTFwWGdDSGNbIzhcMllTIVQqJXBfOW9ObihMTSUvRSx1LDJjQk46dFswcmZSTm5ORmpFX1daXSdrREhmNSYiMVJePixQN3E9cm4yYFNCLVNILS46cyNSNEsvM1xrUW1mWTQ8LmNwcyxYMmNJTXBeTkImSDE6cjJnX2I5Oz08KD9MIiUkInM4PSduZF8hfj5lbmRzdHJlYW0KZW5kb2JqCjIxIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDQ4Mgo+PgpzdHJlYW0KR2IhVFI5MiEyVydTWjtbJ2tdTjYnOWgwNVJbbzhHOz1JUkVpaGVdJztPcU9COU1xMGFuKk9VcSJyMjUxS2EpRjRtUSdHVDszOl5UcnI5Pi46MyU+Ri5rIV9KTFhKTDZeVmo5SF1JI3Jga3FgVTk9YFQ2dWAlbjxJaichanQ7TW4tdU9fKjtfIjZQQlwzNlZdWDolUkJuQDgzJk1MOU91NkRdckJOYUkkaWIrJkpeVVVQLEdtJmxMPFcxOT9pcjBtUyNSYGEpZmUyVDBgQGMuNCIvIydfRVpKNSg3cEVPc2kpNyhxNyhZKUJUYyRiLTwiY2M/VllyPlE3PFdUJEFeQi90VVJTZyFVc05YbEZASEwyYzNtJzBCUjcmNVJNPGtOYGZJZ2o4LzA4WDM6VjAyQC1nZ0k5MG80LVtcLEcpR1VhVWA/VWwlQ0RYPFAmTV9SXldoXyRiM15YU100S1w3OSxcJCJNU05BbT0vTV9nLCtyYF5LOGAjTmZDVXUsIXI2NT9BNTtXPUIrVCVibU1YZ0JSYlNkRGtIXlAsUGYnKWpDY0BARGUnQlMqXiVvOzomaHBBWChebVdwW103TEhoWSViYGA1MD9Oa15tOFAyT2JIYWBOJF4oXyJMa1A9am5efj5lbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCAyMgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwNjEgMDAwMDAgbiAKMDAwMDAwMDExMiAwMDAwMCBuIAowMDAwMDAwMjE5IDAwMDAwIG4gCjAwMDAwMDAzMzEgMDAwMDAgbiAKMDAwMDAwMDU5MyAwMDAwMCBuIAowMDAwMDAwNjcwIDAwMDAwIG4gCjAwMDAwMDA4NzUgMDAwMDAgbiAKMDAwMDAwMTA4MCAwMDAwMCBuIAowMDAwMDAxMjg1IDAwMDAwIG4gCjAwMDAwMDE0OTAgMDAwMDAgbiAKMDAwMDAwMTY5NiAwMDAwMCBuIAowMDAwMDAxOTAyIDAwMDAwIG4gCjAwMDAwMDE5NzIgMDAwMDAgbiAKMDAwMDAwMjI3MiAwMDAwMCBuIAowMDAwMDAyMzcwIDAwMDAwIG4gCjAwMDAwMDQ0MTMgMDAwMDAgbiAKMDAwMDAwNjQyOSAwMDAwMCBuIAowMDAwMDA4NTM3IDAwMDAwIG4gCjAwMDAwMDk0ODMgMDAwMDAgbiAKMDAwMDAxMTQ5OSAwMDAwMCBuIAowMDAwMDEzNDM4IDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPDc5MWM5NTFjOWMwZjUxMDEzOGJlZTZiMGQyNDliZjgzPjw3OTFjOTUxYzljMGY1MTAxMzhiZWU2YjBkMjQ5YmY4Mz5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gMTMgMCBSCi9Sb290IDEyIDAgUgovU2l6ZSAyMgo+PgpzdGFydHhyZWYKMTQwMTEKJSVFT0YK'),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);var blob=new Blob([bytes],{type:'application/pdf'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='ZZP-Startersgids-2025.pdf';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);}catch(e){console.error(e);}}
+function toonPagina(id){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});document.getElementById('page-'+id).classList.add('active');window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;if(id==='tool'){initToolDates();updateTool();}if(id==='tarief'){tS={stap:1,si:null,oi:null,ei:null};setTimeout(renderT,50);}}
+function naarResultaat(){toonPagina('check');document.getElementById('q-area').style.display='none';document.getElementById('result-area').style.display='block';document.getElementById('prog-wrap').style.display='none';}
+var vragen=[{cat:'Gezag en instructies',tekst:'Bepaal jij zelf hoe je het werk uitvoert?',uitleg:'De Belastingdienst kijkt of de opdrachtgever bepaalt hoe het werk gedaan wordt.',pos:'ja',gew:3,thema:'gezag',advies:'Je geeft aan dat de opdrachtgever bepaalt hoe je werkt. Dit wijst op een gezagsverhouding.'},{cat:'Werktijden en locatie',tekst:'Ben je vrij om je eigen werktijden en werkplek te bepalen?',uitleg:'Vaste werktijden of verplichte aanwezigheid zijn kenmerken van loondienst.',pos:'ja',gew:2,thema:'gezag',advies:'Vaste werktijden of verplichte aanwezigheid wijzen op een dienstverband.'},{cat:'Meerdere opdrachtgevers',tekst:'Werk je voor meerdere opdrachtgevers?',uitleg:'Meer dan 70% afhankelijkheid van een opdrachtgever is een risicofactor.',pos:'ja',gew:2,thema:'ondernemerschap',advies:'Volledig afhankelijk van een opdrachtgever is risicovol. Spreid je klantenbestand.'},{cat:'Ondernemersrisico',tekst:'Loop jij financieel risico als het werk tegenvalt?',uitleg:'Een echte ondernemer loopt risico: bij fouten draag jij de consequenties.',pos:'ja',gew:2,thema:'ondernemerschap',advies:'Geen financieel risico lopen lijkt op loondienst. Leg aansprakelijkheid vast in je contracten.'},{cat:'Vervangingsrecht',tekst:'Mag jij jezelf laten vervangen als je verhinderd bent?',uitleg:'De mogelijkheid om jezelf te laten vervangen is een kenmerk van zelfstandigheid.',pos:'ja',gew:2,thema:'arbeidsrelatie',advies:'Geen vervangingsmogelijkheid wijst op een arbeidsrelatie. Leg een vervangingsclausule vast.'},{cat:'Schriftelijke overeenkomst',tekst:'Heb je een schriftelijke opdrachtovereenkomst?',uitleg:'Een goede overeenkomst vermindert het risico op discussie.',pos:'ja',gew:1,thema:'administratie',advies:'Geen schriftelijke overeenkomst is risicovol. Gebruik een modelovereenkomst van de Belastingdienst.'},{cat:'Integratie in organisatie',tekst:'Werk jij op projectbasis, los van de vaste organisatie?',uitleg:'Deel uitmaken van het dagelijkse werkproces met een vaste rol lijkt op loondienst.',pos:'ja',gew:2,thema:'gezag',advies:'Sterk geintegreerd zijn is risicovol. Zorg voor duidelijk onderscheid met eigen tools.'},{cat:'Uurtarief',tekst:'Verdien je meer dan 33 euro per uur?',uitleg:'Bij een tarief onder 33 euro kan de Belastingdienst automatisch loondienst aannemen.',pos:'ja',gew:2,thema:'tarief',advies:'Een tarief onder 33 euro per uur is een risicofactor voor schijnzelfstandigheid.'},{cat:'Zichtbaar ondernemerschap',tekst:'Profileer jij jezelf actief als ondernemer via KvK, website of acquisitie?',uitleg:'Een KvK-inschrijving, website en actieve acquisitie zijn tekenen van echt ondernemerschap.',pos:'ja',gew:1,thema:'ondernemerschap',advies:'Geen zichtbaar ondernemerschap verzwakt je positie. Zorg voor KvK-inschrijving.'},{cat:'Eigen materiaal',tekst:'Gebruik je grotendeels je eigen tools of materialen?',uitleg:'Eigen gereedschap versterkt je positie als zelfstandige.',pos:'ja',gew:1,thema:'ondernemerschap',advies:'Volledig afhankelijk zijn van tools van de opdrachtgever is risicovol.'}];
+var hV=0,antw=[],checkScore=0,probleemT=[];
+function startCheck(){hV=0;antw=new Array(vragen.length).fill(null);toonPagina('check');document.getElementById('q-area').style.display='block';document.getElementById('result-area').style.display='none';document.getElementById('prog-wrap').style.display='block';toonVraag(0);}
+function toonVraag(idx){hV=idx;var v=vragen[idx],tot=vragen.length;document.getElementById('prog-cat').textContent=v.cat;document.getElementById('prog-num').textContent='Vraag '+(idx+1)+' van '+tot;document.getElementById('prog-fill').style.width=((idx+1)/tot*100)+'%';var g=antw[idx];document.getElementById('q-area').innerHTML='<div class="q-card"><div class="q-cat">'+v.cat+'</div><div class="q-text">'+v.tekst+'</div><div class="q-explain">'+v.uitleg+'</div><div class="ans-grid"><button class="ans-btn '+(g==='ja'?'sel':'')+'" onclick="kies(\'ja\')"><span class="ans-ic">&#10003;</span>Ja, dit klopt voor mij</button><button class="ans-btn '+(g==='nee'?'sel':'')+'" onclick="kies(\'nee\')"><span class="ans-ic">&#10005;</span>Nee, dit klopt niet</button></div><div class="q-nav"><button class="btn-prev" onclick="prevV()" style="'+(idx===0?'visibility:hidden':'')+'">&larr; Vorige</button><button class="btn-next" id="btn-next" onclick="nextV()" '+(g?'':'disabled')+'>'+(idx===tot-1?'Bekijk resultaat':'Volgende &rarr;')+'</button></div></div>';}
+function kies(a){antw[hV]=a;document.querySelectorAll('.ans-btn').forEach(function(b){b.classList.remove('sel');});document.querySelectorAll('.ans-btn').forEach(function(b){if((a==='ja'&&b.textContent.indexOf('Ja')>=0)||(a==='nee'&&b.textContent.indexOf('Nee')>=0))b.classList.add('sel');});var nb=document.getElementById('btn-next');if(nb)nb.disabled=false;}
+function nextV(){if(!antw[hV])return;if(hV<vragen.length-1){toonVraag(hV+1);window.scrollTo(0,0);}else toonResultaat();}
+function prevV(){if(hV>0){toonVraag(hV-1);window.scrollTo(0,0);}}
+function toonResultaat(){var beh=0,max=0;probleemT=[];var items=vragen.map(function(v,i){max+=v.gew;var ok=antw[i]===v.pos;if(ok)beh+=v.gew;else probleemT.push(v.thema);return{v:v,ok:ok};});checkScore=Math.round(beh/max*100);var sc=checkScore,kleur,ic,ti,tx;if(sc>=75){kleur='var(--teal2)';ic='&#9989;';ti='Laag risico &mdash; goed bezig!';tx='Jouw situatie vertoont weinig kenmerken van schijnzelfstandigheid.';}else if(sc>=45){kleur='var(--amber)';ic='&#9888;&#65039;';ti='Aandachtspunten gevonden';tx='Jouw situatie heeft enkele risicofactoren. Bekijk de aanbevelingen.';}else{kleur='#ff7a5a';ic='&#128680;';ti='Meerdere risicofactoren';tx='Jouw situatie vertoont meerdere kenmerken van schijnzelfstandigheid.';}var gd=items.filter(function(i){return i.ok;}),sl=items.filter(function(i){return !i.ok;});var gdH=gd.map(function(x){return '<div class="bdi"><div class="bdi-ic ok">&#10003;</div><div><div class="bdi-q">'+x.v.tekst.replace('?','')+'</div><div class="bdi-tip" style="color:var(--teal)">Versterkt je positie als zelfstandige</div></div></div>';}).join('');var slH=sl.map(function(x){return '<div class="bdi"><div class="bdi-ic '+(x.v.gew>=2?'bad':'warn')+'">!</div><div><div class="bdi-q">'+x.v.tekst.replace('?','')+'</div><div class="bdi-tip">'+x.v.advies+'</div></div></div>';}).join('');document.getElementById('prog-wrap').style.display='none';document.getElementById('q-area').style.display='none';document.getElementById('result-area').style.display='block';document.getElementById('result-area').innerHTML='<div class="r-hero"><div class="r-score" style="color:'+kleur+';">'+sc+'%</div><div class="r-title">'+ic+' '+ti+'</div><div class="r-sub">'+tx+'</div></div><div class="r-grid"><div class="r-sec"><h3>&#10003; Goed geregeld ('+gd.length+')</h3>'+(gdH||'<p style="font-size:.82rem;color:var(--mid)">Geen punten goed beoordeeld.</p>')+'</div><div class="r-sec"><h3>&#9888; Aandachtspunten ('+sl.length+')</h3>'+(slH||'<p style="font-size:.82rem;color:var(--teal)">Geen aandachtspunten!</p>')+'</div></div>'+(sc<75?'<div class="spec-box"><div style="flex:1;min-width:180px;"><div style="font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;">Hulp nodig?</div><h3 style="font-family:var(--fl);font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:5px;">Wij verwijzen je door naar de juiste specialist</h3><p style="font-size:.83rem;color:var(--mid);line-height:1.6;">Op basis van jouw antwoorden laten we alleen relevante specialisten zien.</p></div><button class="btn-solid" onclick="naarSpecialist()">Bekijk specialisten &#8594;</button></div>':'')+
+'<div class="r-btns"><button class="btn-ghost" onclick="opnieuw()">&#8635; Opnieuw</button><button class="btn-ghost" onclick="toonPagina(\'landing\')">&#8592; Home</button>'+(sc>=75?'<button class="btn-solid" onclick="naarSpecialist()">Specialist raadplegen (optioneel)</button>':'')+'</div><div class="disc"><strong>&#9888;&#65039; Disclaimer:</strong> Deze check is informatief en geen juridisch advies. Bij twijfel: raadpleeg een belastingadviseur.</div>';}
+function opnieuw(){hV=0;antw=new Array(vragen.length).fill(null);document.getElementById('result-area').style.display='none';document.getElementById('q-area').style.display='block';document.getElementById('prog-wrap').style.display='block';toonVraag(0);window.scrollTo(0,0);}
+
+var specs=[{ic:'&#129534;',cls:'tl',naam:'Belasting en Administratie',omschr:'Een belastingadviseur helpt je DBA-compliant worden en je administratie op orde brengen.',themas:['gezag','administratie','tarief'],tops:['DBA-modelovereenkomst opstellen','BTW-aangifte kwartaal','Administratie op orde','Arbeidsrelatie beoordelen','Uurtarief optimaliseren']},{ic:'&#9878;&#65039;',cls:'nv',naam:'Juridisch Advies',omschr:'Een arbeidsrechtadvocaat helpt je contracten waterdicht te maken.',themas:['gezag','arbeidsrelatie','ondernemerschap'],tops:['Opdrachtovereenkomst controleren','Vervangingsclausule toevoegen','Arbeidsrelatie beoordelen','Modelovereenkomst selecteren','Aansprakelijkheid vastleggen']},{ic:'&#128187;',cls:'tl',naam:'Website en Online Profilering',omschr:'Een professionele website versterkt aantoonbaar je positie als ondernemer.',themas:['ondernemerschap'],tops:['Professionele ZZP-website','LinkedIn optimaliseren','Online zichtbaarheid','KvK-profiel bijwerken','Persoonlijk merk opbouwen']}];
+function naarSpecialist(){toonPagina('spec');renderSpec();}
+function renderSpec(){var ut=probleemT.filter(function(v,i,a){return a.indexOf(v)===i;}),sc=checkScore;var cardsH=specs.map(function(s){var rel=s.themas.some(function(t){return ut.indexOf(t)>=0;});var topsH=s.tops.map(function(t,i){return '<span class="tp '+(i<3&&rel?'act':'')+'">' +t+'</span>';}).join('');return '<div class="sc"><div class="sc-hdr"><div class="sc-icon '+s.cls+'">'+s.ic+'</div><div class="sc-meta"><h3>'+s.naam+'</h3><p>'+s.omschr+'</p></div><span class="sc-badge '+(rel?'rel':'opt')+'">'+(rel?'Relevant voor jou':'Optioneel')+'</span></div><div class="sc-body"><div style="font-size:.69rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:7px;">Jouw onderwerpen:</div><div class="tp-row">'+topsH+'</div></div></div>';}).join('');var topics=['Opdrachtovereenkomst opstellen','Arbeidsrelatie juridisch beoordelen','Administratie en BTW op orde','Website of online profilering','Meerdere opdrachtgevers vinden','Uurtarief verhogen','DBA-risico in kaart brengen','Anders'];var chkH=topics.map(function(t){return '<label class="chk-item"><input type="checkbox" onchange="this.closest(\'.chk-item\').classList.toggle(\'on\',this.checked)"> '+t+'</label>';}).join('');document.getElementById('spec-body').innerHTML='<div style="background:#fff;border-radius:8px;padding:22px 24px;border:1px solid var(--paper2);margin-bottom:18px;display:flex;gap:14px;align-items:flex-start;"><div style="font-size:1.6rem;flex-shrink:0;">&#127919;</div><div><h2 style="font-family:var(--fl);font-size:1.15rem;font-weight:600;color:var(--ink);margin-bottom:5px;">Hulp op maat</h2><p style="font-size:.85rem;line-height:1.75;color:var(--mid);">Op basis van jouw DBA-check (score: <strong>'+sc+'%</strong>) tonen we welke specialisten het meest relevant zijn.</p></div></div><div>'+cardsH+'</div><div class="cf-wrap"><div class="cf-hdr"><h2>Laat je gegevens achter</h2><p>Een specialist neemt binnen 2 werkdagen vrijblijvend contact op.</p></div><div class="cf-body" id="cf-body"><div class="f-row"><div class="fg"><label>Voornaam</label><input id="cf-vn" type="text" placeholder="Jouw voornaam"/></div><div class="fg"><label>Achternaam</label><input id="cf-an" type="text" placeholder="Jouw achternaam"/></div></div><div class="f-row"><div class="fg"><label>E-mailadres</label><input id="cf-em" type="email" placeholder="jouw@email.nl"/></div><div class="fg"><label>Telefoon</label><input id="cf-tel" type="tel" placeholder="+31 6 12345678"/></div></div><div class="f-row full"><div class="fg"><label>Sector</label><input id="cf-sec" type="text" placeholder="bijv. IT-consultant, ontwerper..."/></div></div><div class="fg" style="margin-bottom:12px;"><label>Waarmee wil je hulp?</label><div class="chk-grid">'+chkH+'</div></div><div class="fg" style="margin-bottom:12px;"><label>Hoe snel?</label><div class="urg-row"><button class="urg-btn" onclick="setUrg(this)">&#128308; Zo snel mogelijk</button><button class="urg-btn" onclick="setUrg(this)">&#128993; Binnen 1 maand</button><button class="urg-btn" onclick="setUrg(this)">&#128994; Geen haast</button></div></div><div class="fg" style="margin-bottom:15px;"><label>Toelichting</label><textarea id="cf-tl" placeholder="Vertel meer over jouw situatie..."></textarea></div><div class="submit-row"><div class="submit-note">Je gegevens worden alleen gedeeld met de relevante specialist.</div><button class="btn-submit" onclick="verstuur()">Verstuur aanvraag &#8594;</button></div><div class="disc" style="margin-top:12px;"><strong>Let op:</strong> Zeker ZZP verwijst door maar geeft zelf geen juridisch of fiscaal advies.</div></div></div>';}
+function setUrg(btn){document.querySelectorAll('.urg-btn').forEach(function(b){b.classList.remove('sel');});btn.classList.add('sel');}
+function verstuur(){var vn=document.getElementById('cf-vn')?document.getElementById('cf-vn').value.trim():'';var an=document.getElementById('cf-an')?document.getElementById('cf-an').value.trim():'';var em=document.getElementById('cf-em')?document.getElementById('cf-em').value.trim():'';if(!vn){alert('Vul je voornaam in.');return;}if(!an){alert('Vul je achternaam in.');return;}if(!em||em.indexOf('@')<0){alert('Vul een geldig e-mailadres in.');return;}document.getElementById('cf-body').innerHTML='<div class="success-wrap"><div style="font-size:2.6rem;margin-bottom:10px;">&#127881;</div><h2>Aanvraag verstuurd!</h2><p>Bedankt '+vn+'! Een specialist neemt binnen <strong>2 werkdagen</strong> contact op via <strong>'+em+'</strong>.</p><button class="btn-ghost" onclick="toonPagina(\'landing\')">&#8592; Terug naar home</button></div>';}
+
+var tKw='K2',tJr='2025',tData={};
+try{tData=JSON.parse(localStorage.getItem('zzp-data')||'{}');}catch(e){tData={};}
+var kwMnd={K1:['01','02','03'],K2:['04','05','06'],K3:['07','08','09'],K4:['10','11','12']};
+var mndNm={'01':'Januari','02':'Februari','03':'Maart','04':'April','05':'Mei','06':'Juni','07':'Juli','08':'Augustus','09':'September','10':'Oktober','11':'November','12':'December'};
+function tSleutel(){return tJr+'-'+tKw;}
+function tGet(){if(!tData[tSleutel()])tData[tSleutel()]={ink:[],uit:[]};return tData[tSleutel()];}
+function tSave(){try{localStorage.setItem('zzp-data',JSON.stringify(tData));}catch(e){}}
+function eur(n){return '\u20ac '+Math.abs(n).toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');}
+function btwC(e,t){if(t==='vrij'||t==='0')return 0;return e*(parseInt(t)/100);}
+function setEl(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
+function wisselKwartaal(){var ks=document.getElementById('kw-sel'),js=document.getElementById('jr-sel');if(ks)tKw=ks.value;if(js)tJr=js.value;updateTool();}
+function initToolDates(){var nu=new Date(),m=nu.getMonth()+1,autoK=m<=3?'K1':m<=6?'K2':m<=9?'K3':'K4';tKw=autoK;tJr=String(nu.getFullYear());var ks=document.getElementById('kw-sel');if(ks)ks.value=autoK;var js=document.getElementById('jr-sel');if(js)js.value=tJr;var vd=nu.toISOString().substring(0,10);var id=document.getElementById('i-datum');if(id)id.value=vd;var ud=document.getElementById('u-datum');if(ud)ud.value=vd;}
+function openTab(n){document.querySelectorAll('.t-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.t-tab').forEach(function(b){b.classList.remove('active');});var p=document.getElementById('t-panel-'+n);if(p)p.classList.add('active');var map={dashboard:0,inkomsten:1,uitgaven:2,btw:3};var tabs=document.querySelectorAll('.t-tab');if(tabs[map[n]])tabs[map[n]].classList.add('active');updateTool();}
+function iPreview(){var b=parseFloat(document.getElementById('i-bedrag')?.value)||0,t=document.getElementById('i-btw')?.value||'21',btw=btwC(b,t);setEl('i-prev-btw',eur(btw));setEl('i-prev-tot',eur(b+btw));}
+function uPreview(){var b=parseFloat(document.getElementById('u-bedrag')?.value)||0,t=document.getElementById('u-btw')?.value||'21',btw=btwC(b,t);setEl('u-prev-btw',eur(btw));setEl('u-prev-tot',eur(b+btw));}
+function voegIToe(){var datum=document.getElementById('i-datum')?.value,omschr=document.getElementById('i-omschr')?.value.trim(),bedrag=parseFloat(document.getElementById('i-bedrag')?.value);if(!datum){alert('Vul een datum in.');return;}if(!omschr){alert('Vul een omschrijving in.');return;}if(!bedrag||bedrag<=0){alert('Vul een geldig bedrag in.');return;}var tarief=document.getElementById('i-btw')?.value||'21',btw=btwC(bedrag,tarief);tGet().ink.push({id:Date.now(),datum:datum,omschr:omschr,klant:document.getElementById('i-klant')?.value.trim()||'',factuur:document.getElementById('i-factuur')?.value.trim()||'',bedrag:bedrag,tarief:tarief,btw:btw});tSave();resetI();updateTool();}
+function voegUToe(){var datum=document.getElementById('u-datum')?.value,omschr=document.getElementById('u-omschr')?.value.trim(),bedrag=parseFloat(document.getElementById('u-bedrag')?.value);if(!datum){alert('Vul een datum in.');return;}if(!omschr){alert('Vul een omschrijving in.');return;}if(!bedrag||bedrag<=0){alert('Vul een geldig bedrag in.');return;}var tarief=document.getElementById('u-btw')?.value||'21',btw=btwC(bedrag,tarief);tGet().uit.push({id:Date.now(),datum:datum,omschr:omschr,cat:document.getElementById('u-cat')?.value||'Overig',lev:document.getElementById('u-lev')?.value.trim()||'',bedrag:bedrag,tarief:tarief,btw:btw});tSave();resetU();updateTool();}
+function delI(id){if(!confirm('Verwijderen?'))return;tGet().ink=tGet().ink.filter(function(i){return i.id!==id;});tSave();updateTool();}
+function delU(id){if(!confirm('Verwijderen?'))return;tGet().uit=tGet().uit.filter(function(i){return i.id!==id;});tSave();updateTool();}
+function resetI(){['i-omschr','i-klant','i-factuur','i-bedrag'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});var b=document.getElementById('i-btw');if(b)b.value='21';iPreview();}
+function resetU(){['u-omschr','u-lev','u-bedrag'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});var b=document.getElementById('u-btw');if(b)b.value='21';uPreview();}
+function updateTool(){var ink=tGet().ink,uit=tGet().uit;var tI=ink.reduce(function(s,i){return s+i.bedrag;},0),tU=uit.reduce(function(s,i){return s+i.bedrag;},0);var bO=ink.reduce(function(s,i){return s+i.btw;},0),bB=uit.reduce(function(s,i){return s+i.btw;},0);var bS=bO-bB,winst=tI-tU,netto=winst-Math.max(0,bS);setEl('d-ink',eur(tI));setEl('d-ink-sub',ink.length+' facturen');setEl('d-uit',eur(tU));setEl('d-uit-sub',uit.length+' kostenposten');var dw=document.getElementById('d-winst');if(dw){dw.textContent=eur(winst);dw.style.color=winst>=0?'#4a90d9':'var(--red)';}setEl('d-btw',eur(Math.abs(bS)));var ds=document.getElementById('d-btw-sub');if(ds)ds.textContent=bS>0?'Te betalen':bS<0?'Terug te ontvangen':'Geen saldo';
+var mnd=kwMnd[tKw],tbody=document.getElementById('mnd-tbody');if(tbody){var has=false;var rows=mnd.map(function(m){var mI=ink.filter(function(i){return i.datum.substring(5,7)===m;}),mU=uit.filter(function(i){return i.datum.substring(5,7)===m;});var mIe=mI.reduce(function(s,i){return s+i.bedrag;},0),mUe=mU.reduce(function(s,i){return s+i.bedrag;},0);var mW=mIe-mUe,mBO=mI.reduce(function(s,i){return s+i.btw;},0),mBB=mU.reduce(function(s,i){return s+i.btw;},0);if(mIe>0||mUe>0)has=true;return '<tr><td class="t-td" style="font-weight:600;color:var(--teal);">'+mndNm[m]+'</td><td class="t-td">'+eur(mIe)+'</td><td class="t-td">'+eur(mUe)+'</td><td class="t-td" style="color:'+(mW>=0?'var(--teal)':'var(--red)')+';">'+eur(mW)+'</td><td class="t-td">'+eur(mBO)+'</td><td class="t-td">'+eur(mBB)+'</td></tr>';});tbody.innerHTML=has?rows.join(''):'<tr><td colspan="6" class="t-leeg">Voeg inkomsten of uitgaven toe om het overzicht te zien.</td></tr>';setEl('tot-ink',eur(tI));setEl('tot-uit',eur(tU));setEl('tot-winst',eur(winst));setEl('tot-bO',eur(bO));setEl('tot-bB',eur(bB));}
+var iTb=document.getElementById('i-tbody');if(iTb){if(ink.length===0){iTb.innerHTML='<tr><td colspan="9" class="t-leeg">Nog geen inkomsten toegevoegd.</td></tr>';var f=document.getElementById('i-foot');if(f)f.style.display='none';}else{iTb.innerHTML=ink.slice().sort(function(a,b){return a.datum.localeCompare(b.datum);}).map(function(i){return '<tr><td class="t-td">'+i.datum.split("-").reverse().join("-")+'</td><td class="t-td">'+i.omschr+'</td><td class="t-td">'+(i.klant||'&mdash;')+'</td><td class="t-td">'+(i.factuur||'&mdash;')+'</td><td class="t-td"><strong>'+eur(i.bedrag)+'</strong></td><td class="t-td"><span class="t-badge t-badge-g">'+(i.tarief==='vrij'?'Vrijgesteld':i.tarief+'%')+'</span></td><td class="t-td">'+eur(i.btw)+'</td><td class="t-td">'+eur(i.bedrag+i.btw)+'</td><td class="t-td"><button class="t-btn-del" onclick="delI('+i.id+')">&#10005;</button></td></tr>';}).join('');var te=ink.reduce(function(s,i){return s+i.bedrag;},0),tb=ink.reduce(function(s,i){return s+i.btw;},0);var f=document.getElementById('i-foot');if(f)f.style.display='flex';setEl('i-tot-e',eur(te));setEl('i-tot-b',eur(tb));setEl('i-tot-i',eur(te+tb));}}
+var uTb=document.getElementById('u-tbody');if(uTb){if(uit.length===0){uTb.innerHTML='<tr><td colspan="9" class="t-leeg">Nog geen uitgaven toegevoegd.</td></tr>';var f=document.getElementById('u-foot');if(f)f.style.display='none';}else{uTb.innerHTML=uit.slice().sort(function(a,b){return a.datum.localeCompare(b.datum);}).map(function(i){return '<tr><td class="t-td">'+i.datum.split("-").reverse().join("-")+'</td><td class="t-td">'+i.omschr+'</td><td class="t-td"><span class="t-badge t-badge-a">'+i.cat+'</span></td><td class="t-td">'+(i.lev||'&mdash;')+'</td><td class="t-td"><strong>'+eur(i.bedrag)+'</strong></td><td class="t-td"><span class="t-badge t-badge-g">'+(i.tarief==='vrij'?'Geen BTW':i.tarief+'%')+'</span></td><td class="t-td">'+eur(i.btw)+'</td><td class="t-td">'+eur(i.bedrag+i.btw)+'</td><td class="t-td"><button class="t-btn-del" onclick="delU('+i.id+')">&#10005;</button></td></tr>';}).join('');var te=uit.reduce(function(s,i){return s+i.bedrag;},0),tb=uit.reduce(function(s,i){return s+i.btw;},0);var f=document.getElementById('u-foot');if(f)f.style.display='flex';setEl('u-tot-e',eur(te));setEl('u-tot-b',eur(tb));setEl('u-tot-i',eur(te+tb));}}
+var kwNm={K1:'Kwartaal 1',K2:'Kwartaal 2',K3:'Kwartaal 3',K4:'Kwartaal 4'}[tKw];setEl('btw-per',kwNm+' '+tJr);setEl('btw-o',eur(bO));setEl('btw-b','\u2212 '+eur(bB));setEl('btw-tot-val',eur(Math.abs(bS)));
+var blok=document.getElementById('btw-tot-blok'),lbl=document.getElementById('btw-tot-lbl');if(blok&&lbl){if(bS>0){blok.style.background='var(--teal-pale)';lbl.textContent='Te betalen aan Belastingdienst';lbl.style.color='var(--teal)';document.getElementById('btw-tot-val').style.color='var(--teal)';}else if(bS<0){blok.style.background='#e6f9ec';lbl.textContent='Terug te ontvangen';lbl.style.color='#1a7a3c';document.getElementById('btw-tot-val').style.color='#1a7a3c';}else{lbl.textContent='Geen BTW-saldo';}}
+setEl('bov-omzet',eur(tI));setEl('bov-kosten',eur(tU));var bw=document.getElementById('bov-winst');if(bw){bw.textContent=eur(winst);bw.style.color=winst>=0?'var(--teal)':'var(--red)';}setEl('bov-netto',eur(netto));}
+
+function exportPDF(){var ink=tGet().ink,uit=tGet().uit;var kwNm={K1:'K1 jan-mrt',K2:'K2 apr-jun',K3:'K3 jul-sep',K4:'K4 okt-dec'}[tKw];var tI=ink.reduce(function(s,i){return s+i.bedrag;},0),tU=uit.reduce(function(s,i){return s+i.bedrag;},0);var bO=ink.reduce(function(s,i){return s+i.btw;},0),bB=uit.reduce(function(s,i){return s+i.btw;},0);var bS=bO-bB,winst=tI-tU,netto=winst-Math.max(0,bS);var bK=bS>0?'#0d7c66':'#c9350f',bL=bS>0?'Te betalen':bS<0?'Terug te ontvangen':'Geen saldo';var w=window.open('','_blank');if(!w){alert('Zet pop-ups aan.');return;}w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>BTW</title><style>body{font-family:Arial,sans-serif;font-size:11px;padding:32px;}h1{font-size:16px;color:#0d7c66;margin-bottom:2px;}h2{font-size:10px;text-transform:uppercase;color:#0d7c66;border-bottom:1px solid #0d7c66;padding-bottom:2px;margin:14px 0 6px;}table{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:10px;}th{background:#f0f4f0;padding:5px 6px;text-align:left;border-bottom:1px solid #ddd;}td{padding:4px 6px;border-bottom:1px solid #f0f0f0;}.tot td{font-weight:700;background:#f0f4f0;border-top:1px solid #0d7c66;}@media print{body{-webkit-print-color-adjust:exact;}}</style></head><body><h1>BTW-aangifte &mdash; Zeker ZZP</h1><div style="font-size:9px;color:#888;margin-bottom:12px;">'+kwNm+' '+tJr+'</div><div style="border:2px solid '+bK+';border-radius:4px;padding:10px 14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;"><div style="font-weight:700;color:'+bK+';">'+bL+'</div><div style="font-size:16px;font-weight:700;color:'+bK+';">'+eur(Math.abs(bS))+'</div></div><h2>Inkomsten</h2><table><thead><tr><th>Datum</th><th>Omschrijving</th><th>Klant</th><th>Excl. BTW</th><th>BTW</th></tr></thead><tbody>'+(ink.length?ink.map(function(i){return '<tr><td>'+i.datum.split("-").reverse().join("-")+'</td><td>'+i.omschr+'</td><td>'+(i.klant||'-')+'</td><td>'+eur(i.bedrag)+'</td><td>'+eur(i.btw)+'</td></tr>';}).join(''):'<tr><td colspan="5" style="color:#aaa;">Geen inkomsten</td></tr>')+'</tbody><tfoot><tr class="tot"><td colspan="3">Totaal</td><td>'+eur(tI)+'</td><td>'+eur(bO)+'</td></tr></tfoot></table><h2>Uitgaven</h2><table><thead><tr><th>Datum</th><th>Omschrijving</th><th>Categorie</th><th>Excl. BTW</th><th>BTW terug</th></tr></thead><tbody>'+(uit.length?uit.map(function(i){return '<tr><td>'+i.datum.split("-").reverse().join("-")+'</td><td>'+i.omschr+'</td><td>'+i.cat+'</td><td>'+eur(i.bedrag)+'</td><td>'+eur(i.btw)+'</td></tr>';}).join(''):'<tr><td colspan="5" style="color:#aaa;">Geen uitgaven</td></tr>')+'</tbody><tfoot><tr class="tot"><td colspan="3">Totaal</td><td>'+eur(tU)+'</td><td>'+eur(bB)+'</td></tr></tfoot></table><scr'+'ipt>window.onload=function(){window.print();};<'+'/script></body></html>');w.document.close();}
+var tariefSectoren=[{naam:'ICT en Technologie',emoji:'&#128187;',min:75,gem:102,max:140},{naam:'Juridisch en Notariaat',emoji:'&#9878;&#65039;',min:90,gem:138,max:180},{naam:'Finance en Accountancy',emoji:'&#128202;',min:70,gem:110,max:150},{naam:'Management en Consultancy',emoji:'&#127970;',min:80,gem:115,max:160},{naam:'Marketing en Communicatie',emoji:'&#128226;',min:55,gem:80,max:120},{naam:'Onderwijs en Coaching',emoji:'&#127891;',min:45,gem:70,max:100},{naam:'Zorg en Welzijn',emoji:'&#127973;',min:35,gem:55,max:80},{naam:'Bouw en Techniek',emoji:'&#128295;',min:45,gem:70,max:100},{naam:'Creatief en Design',emoji:'&#127912;',min:50,gem:75,max:110},{naam:'HR en Recruitment',emoji:'&#128101;',min:60,gem:85,max:120},{naam:'Logistiek en Transport',emoji:'&#128667;',min:33,gem:48,max:65},{naam:'Horeca en Toerisme',emoji:'&#127869;&#65039;',min:33,gem:50,max:70},{naam:'Overheid en Non-profit',emoji:'&#127963;',min:60,gem:95,max:130},{naam:'Anders',emoji:'&#128188;',min:40,gem:75,max:110}];
+var tariefOpl=[{naam:'Geen diploma / vmbo',f:-0.20},{naam:'MBO',f:-0.08},{naam:'HBO',f:0},{naam:'WO / Bachelor',f:0.12},{naam:'WO / Master of hoger',f:0.20}];
+var tariefErv=[{naam:'Starter (0-2 jaar)',f:-0.25},{naam:'Junior (2-5 jaar)',f:-0.10},{naam:'Medior (5-10 jaar)',f:0},{naam:'Senior (10-15 jaar)',f:0.15},{naam:'Expert (15+ jaar)',f:0.28}];
+var tS={stap:1,si:null,oi:null,ei:null};
+function updSB(){for(var i=1;i<=4;i++){var el=document.getElementById('ts'+i);if(!el)continue;el.className='ts';if(i<tS.stap)el.classList.add('done');if(i===tS.stap)el.classList.add('active');}var fill=document.getElementById('ts-fill');if(fill)fill.style.width=((tS.stap-1)/3*100)+'%';}
+function renderT(){updSB();var cont=document.getElementById('tarief-content');if(!cont)return;if(tS.stap===1){var o='';for(var i=0;i<tariefSectoren.length;i++){var s=tariefSectoren[i];o+='<button class="t-opt '+(tS.si===i?'sel':'')+'" onclick="pickSec('+i+')"><span class="t-opt-ic">'+s.emoji+'</span>'+s.naam+'</button>';}cont.innerHTML='<div class="tarief-card"><div class="tarief-eyebrow">Stap 1 van 3</div><div class="tarief-title">In welke sector werk je?</div><div class="tarief-sub">Kies de sector die het beste past bij jouw werk.</div><div class="tarief-opts">'+o+'</div><div class="tarief-nav"><span></span><button class="tarief-btn pri" onclick="tS.stap=2;renderT();" '+(tS.si===null?'disabled':'')+'>Volgende &#8594;</button></div></div>';}else if(tS.stap===2){var o='';for(var i=0;i<tariefOpl.length;i++){var ol=tariefOpl[i];o+='<button class="t-opt '+(tS.oi===i?'sel':'')+'" onclick="pickOpl('+i+')"><span class="t-opt-ic">&#127891;</span>'+ol.naam+'</button>';}cont.innerHTML='<div class="tarief-card"><div class="tarief-eyebrow">Stap 2 van 3</div><div class="tarief-title">Wat is je hoogste opleiding?</div><div class="tarief-sub">Hoger opgeleiden verdienen gemiddeld tot 34% meer.</div><div class="tarief-opts single">'+o+'</div><div class="tarief-nav"><button class="tarief-btn sec" onclick="tS.stap=1;renderT();">&#8592; Vorige</button><button class="tarief-btn pri" onclick="tS.stap=3;renderT();" '+(tS.oi===null?'disabled':'')+'>Volgende &#8594;</button></div></div>';}else if(tS.stap===3){var o='';for(var i=0;i<tariefErv.length;i++){var e=tariefErv[i];o+='<button class="t-opt '+(tS.ei===i?'sel':'')+'" onclick="pickErv('+i+')"><span class="t-opt-ic">&#9201;&#65039;</span>'+e.naam+'</button>';}cont.innerHTML='<div class="tarief-card"><div class="tarief-eyebrow">Stap 3 van 3</div><div class="tarief-title">Hoeveel jaar werkervaring heb je?</div><div class="tarief-sub">Ervaren freelancers verdienen soms dubbel zoveel als starters.</div><div class="tarief-opts single">'+o+'</div><div class="tarief-nav"><button class="tarief-btn sec" onclick="tS.stap=2;renderT();">&#8592; Vorige</button><button class="tarief-btn pri" onclick="berekenT();" '+(tS.ei===null?'disabled':'')+'>Bereken mijn tarief &#8594;</button></div></div>';}else{berekenT();}}
+function pickSec(i){tS.si=i;renderT();}function pickOpl(i){tS.oi=i;renderT();}function pickErv(i){tS.ei=i;renderT();}
+function berekenT(){tS.stap=4;updSB();var sect=tariefSectoren[tS.si],opl=tariefOpl[tS.oi],erv=tariefErv[tS.ei];var factor=1+opl.f+erv.f;var gem=Math.round(sect.gem*factor/5)*5,min=Math.max(33,Math.round(sect.min*factor/5)*5),max=Math.round(sect.max*factor/5)*5;var verh=Math.round((gem/sect.gem-1)*100),verhTxt=verh>=0?'+'+verh+'% boven':Math.abs(verh)+'% onder';var oplSign=opl.f>=0?'+':'',ervSign=erv.f>=0?'+':'';var wH=gem<33?'<div class="tarief-warn red"><span>&#9888;&#65039;</span><div><strong>Let op: tarief onder DBA-grens</strong><br>Een tarief onder 33 euro kan worden gezien als schijnzelfstandigheid.</div></div>':gem>=75?'<div class="tarief-warn green"><span>&#9989;</span><div><strong>Boven de opt-out grens</strong><br>Bij 75 euro of hoger kun je gebruik maken van de opt-out regeling.</div></div>':'<div class="tarief-warn green"><span>&#9989;</span><div><strong>Boven het wettelijk minimum</strong><br>Je tarief ligt boven de DBA-grens van 33 euro per uur.</div></div>';var cont=document.getElementById('tarief-content');cont.innerHTML='<div class="tarief-result-hero"><div class="tr-label">Jouw aanbevolen uurtarief</div><div class="tr-val">&#8364; '+gem+',-</div><div class="tr-range">Marktbandwidth: &#8364; '+min+' &ndash; &#8364; '+max+' per uur (excl. BTW)</div><div class="tr-sector">'+sect.emoji+' '+sect.naam+'</div></div>'+wH+'<div class="tarief-breakdown"><div class="tr-row"><span class="tr-row-lbl">Gemiddeld tarief in jouw sector</span><span class="tr-row-val" style="color:var(--mid);">&#8364; '+sect.gem+'/uur</span></div><div class="tr-row"><span class="tr-row-lbl">Correctie opleiding ('+opl.naam+')</span><span class="tr-row-val" style="color:'+(opl.f>=0?'var(--teal)':'var(--red)')+';">'+oplSign+Math.round(opl.f*100)+'%</span></div><div class="tr-row"><span class="tr-row-lbl">Correctie ervaring ('+erv.naam+')</span><span class="tr-row-val" style="color:'+(erv.f>=0?'var(--teal)':'var(--red)')+';">'+ervSign+Math.round(erv.f*100)+'%</span></div><div class="tr-row" style="background:var(--amber-pale);"><span class="tr-row-lbl" style="font-weight:700;">Jouw aanbevolen tarief</span><span class="tr-row-val" style="color:var(--amber);font-weight:700;">&#8364; '+gem+'/uur &mdash; '+verhTxt+' sectorgem.</span></div></div><div class="tarief-project"><h3>&#128188; Projectprijzen</h3><div class="proj-grid"><div class="proj-item"><div class="proj-label">Dag (8 uur)</div><div class="proj-val">&#8364; '+(gem*8).toLocaleString('nl-NL')+',-</div></div><div class="proj-item"><div class="proj-label">Week (36 uur)</div><div class="proj-val">&#8364; '+(gem*36).toLocaleString('nl-NL')+',-</div></div><div class="proj-item"><div class="proj-label">Klein project (~20 uur)</div><div class="proj-val">&#8364; '+(gem*20).toLocaleString('nl-NL')+',-</div></div><div class="proj-item"><div class="proj-label">Middelgroot (~80 uur)</div><div class="proj-val">&#8364; '+(gem*80).toLocaleString('nl-NL')+',-</div></div></div></div><div class="disc" style="margin-bottom:12px;"><strong>&#8505;&#65039; Let op:</strong> Dit tarief is een indicatie op basis van marktonderzoek 2025.</div><div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn-ghost" onclick="tS={stap:1,si:null,oi:null,ei:null};renderT();">&#8635; Opnieuw</button><button class="btn-ghost" onclick="toonPagina(\'landing\');">&#8592; Home</button><button class="btn-solid" onclick="startCheck();">Doe ook de DBA-check &#8594;</button></div>';}
+function toggleFaq(el){var a=el.nextElementSibling;var sp=el.querySelector('span');a.classList.toggle('open');sp.textContent=a.classList.contains('open')?'\u2227':'\u2964';}
+function toonNlModal(){var m=document.getElementById('nl-modal');if(m){m.style.display='flex';document.body.style.overflow='hidden';}}
+function sluitNlModal(){var m=document.getElementById('nl-modal');if(m){m.style.display='none';document.body.style.overflow='';}}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')sluitNlModal();});
+function aanmeldenNL(){var naam=document.getElementById('nl-naam')?document.getElementById('nl-naam').value.trim():'';var email=document.getElementById('nl-email')?document.getElementById('nl-email').value.trim():'';if(!naam){alert('Vul je voornaam in.');return;}if(!email||email.indexOf('@')<0){alert('Vul een geldig e-mailadres in.');return;}downloadGids();try{var a=JSON.parse(localStorage.getItem('nl-aanmeldingen')||'[]');a.push({naam:naam,email:email,datum:new Date().toISOString()});localStorage.setItem('nl-aanmeldingen',JSON.stringify(a));}catch(e){}var mf=document.getElementById('nl-modal-form');var ms=document.getElementById('nl-modal-success');var sm=document.getElementById('nl-success-msg');if(mf)mf.style.display='none';if(ms)ms.style.display='block';if(sm)sm.innerHTML='Bedankt <strong>'+naam+'</strong>! De gids wordt nu gedownload naar je apparaat.';}
+
+</script>
+</body>
+</html>
